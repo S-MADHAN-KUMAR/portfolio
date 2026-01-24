@@ -17,8 +17,8 @@
   --selection: #264f78;
   --hover: #2a2d2e;
 
-  --font-mono: "ABC Diatype";
-  --font-sans: "ABC Diatype";
+  --font-mono: "ABC Diatype", system-ui, -apple-system, sans-serif;
+  --font-sans: "ABC Diatype", system-ui, -apple-system, sans-serif;
 
   --background: 0 0% 5%;
   --foreground: 0 0% 80%;
@@ -53,12 +53,14 @@
   scrollbar-width: thin;
   scrollbar-color: var(--border-custom) transparent;
   font-family: var(--font-sans);
+  font-weight: 400;
 }
 
 body {
   background-color: var(--bg-editor);
   color: var(--fg);
   font-family: var(--font-sans);
+  font-weight: 400;
   height: 100vh;
   overflow: hidden;
 }

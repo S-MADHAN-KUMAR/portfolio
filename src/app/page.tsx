@@ -79,15 +79,15 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 bg-accent/20 text-accent text-[10px] font-bold uppercase tracking-widest rounded">
+              <span className="px-2 py-0.5 bg-accent/20 text-accent text-[10px] font-normal uppercase tracking-widest rounded">
                 Project Detail
               </span>
               <span className="text-neutral-500 font-mono text-[10px]">{project.category}</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase italic drop-shadow-sm">
+            <h1 className="text-4xl md:text-5xl font-normal text-white tracking-tighter uppercase italic drop-shadow-sm">
               {project.title}
             </h1>
-            <p className="text-accent font-bold uppercase tracking-widest text-xs opacity-80">
+            <p className="text-accent font-normal uppercase tracking-widest text-xs opacity-80">
               {project.date}
             </p>
           </div>
@@ -98,7 +98,7 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
                 href={project.github} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-lg text-sm font-bold text-white hover:bg-neutral-800 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-lg text-sm font-normal text-white hover:bg-neutral-800 transition-colors"
               >
                 <Github size={16} />
                 <span>GITHUB</span>
@@ -109,7 +109,7 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
                 href={project.webapp} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-2 px-4 py-2 bg-accent text-black rounded-lg text-sm font-bold hover:brightness-110 transition-all shadow-[0_0_20px_rgba(var(--accent-rgb),0.3)]"
+                className="flex items-center gap-2 px-4 py-2 bg-accent text-black rounded-lg text-sm font-normal hover:brightness-110 transition-all shadow-[0_0_20px_rgba(var(--accent-rgb),0.3)]"
               >
                 <ExternalLink size={16} />
                 <span>LAUNCH SITE</span>
@@ -132,7 +132,7 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-6">
             <div className="space-y-2">
-              <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-800 pb-2">Description</h3>
+              <h3 className="text-sm font-normal text-neutral-400 uppercase tracking-widest border-b border-neutral-800 pb-2">Description</h3>
               <p className="text-neutral-300 leading-relaxed text-lg whitespace-pre-line">
                 {project.description}
               </p>
@@ -141,12 +141,12 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
           
           <div className="space-y-6">
             <div className="space-y-2">
-              <h3 className="text-sm font-bold text-neutral-400 uppercase tracking-widest border-b border-neutral-800 pb-2">Technologies</h3>
+              <h3 className="text-sm font-normal text-neutral-400 uppercase tracking-widest border-b border-neutral-800 pb-2">Technologies</h3>
               <div className="flex flex-wrap gap-2 pt-2">
                 {project.tags?.map((tag, i) => (
                   <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-neutral-900/50 rounded-lg border border-neutral-800 hover:border-accent transition-colors">
                     {tag.image && <img src={tag.image} alt={tag.name} className="w-4 h-4 object-contain" />}
-                    <span className="text-[11px] font-bold text-neutral-400 uppercase">{tag.name}</span>
+                    <span className="text-[11px] font-normal text-neutral-400 uppercase">{tag.name}</span>
                   </div>
                 ))}
               </div>
@@ -180,8 +180,8 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
                 className="w-12 h-12 rounded-lg border border-neutral-800"
               />
               <div>
-                <h4 className="text-xl font-bold text-white uppercase tracking-tight">Software Developer</h4>
-                <span className="text-accent font-semibold uppercase tracking-wide text-xs">Healthpilot.ai</span>
+                <h4 className="text-xl font-normal text-white uppercase tracking-tight">Software Developer</h4>
+                <span className="text-accent font-normal uppercase tracking-wide text-xs">Healthpilot.ai</span>
               </div>
             </div>
             <div className="flex items-center gap-2 mb-4 text-neutral-400 text-sm">
@@ -203,12 +203,14 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
         content: (
           <div>
             <div className="flex items-center gap-4 mb-2">
-              <div className="w-12 h-12 rounded-lg border border-neutral-800 flex items-center justify-center bg-neutral-900">
-                <Briefcase size={24} className="text-accent" />
-              </div>
+              <img 
+                src="https://media.licdn.com/dms/image/v2/D560BAQHI05yQ0_OvKg/company-logo_200_200/B56ZU3eEBwGUAI-/0/1740392383040?e=1770854400&v=beta&t=VYUzf4C0KzO8F2P7j4QKDslAI43AuauVaLIr-Cou2Ng" 
+                alt="COSIE Logo" 
+                className="w-12 h-12 rounded-lg border border-neutral-800 object-contain bg-white p-1"
+              />
               <div>
-                <h4 className="text-xl font-bold text-white uppercase tracking-tight">Frontend Developer</h4>
-                <span className="text-accent font-semibold uppercase tracking-wide text-xs">COSIE</span>
+                <h4 className="text-xl font-normal text-white uppercase tracking-tight">Frontend Developer</h4>
+                <span className="text-accent font-normal uppercase tracking-wide text-xs">COSIE</span>
               </div>
             </div>
             <div className="flex items-center gap-2 mb-4 text-neutral-400 text-sm">
@@ -236,9 +238,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
                 className="w-12 h-12 rounded-lg border border-neutral-800 object-contain bg-white p-1"
               />
               <div>
-                <h4 className="text-xl font-bold text-white uppercase tracking-tight">MERN Stack Developer</h4>
+                <h4 className="text-xl font-normal text-white uppercase tracking-tight">MERN Stack Developer</h4>
                 <div className="flex items-center gap-2">
-                  <span className="text-accent font-semibold uppercase tracking-wide text-xs">Brocamp</span>
+                  <span className="text-accent font-normal uppercase tracking-wide text-xs">Brocamp</span>
                 </div>
               </div>
             </div>
@@ -279,79 +281,29 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     );
   }
 
-  if (file.name === 'Senior Developer') {
+  if (file.name === 'College.tsx') {
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-          <div className="badge">EXPERIENCE</div>
-          <h1 className="title gradient-text">Senior Software Engineer</h1>
-          <p className="subtitle">Tech Solutions Inc. • 2022 - Present</p>
-          <div className="description">
-            Leading the frontend team in building scalable web applications using Next.js and React.
-          </div>
-          <div className="achievements-grid">
-            {[
-              "Optimized application performance by 40%",
-              "Architected the migration from monolithic to micro-frontend",
-              "Mentored junior developers and improved team code quality"
-            ].map((text, i) => (
-              <div key={i} className="achievement-card">
-                <Zap size={16} className="text-accent" />
-                <span>{text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (file.name === 'Fullstack Dev') {
-    return (
-      <div className="portfolio-ui-container">
-        <div className="hero-section">
-          <div className="badge">EXPERIENCE</div>
-          <h1 className="title gradient-text">Fullstack Developer</h1>
-          <p className="subtitle">WebCraft Agency • 2020 - 2022</p>
-          <div className="description">
-            Building end-to-end solutions with a focus on real-time systems and cloud architecture.
-          </div>
-          <div className="tech-stack-pills">
-            {["Node.js", "PostgreSQL", "React", "AWS", "Socket.io"].map(tech => (
-              <span key={tech} className="pill">{tech}</span>
-            ))}
-          </div>
-          <div className="featured-project-card">
-            <h3>Key Project: E-commerce Platform</h3>
-            <p>Developed a real-time inventory management system handling over 10k transactions daily.</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (file.name === 'University.md') {
-    return (
-      <div className="portfolio-ui-container">
-        <div className="hero-section">
-          <div className="badge">EDUCATION</div>
-          <h1 className="title gradient-text">B.S. Computer Science</h1>
-          <p className="subtitle">State University • Class of 2020</p>
+          <div className="badge">HIGHER EDUCATION</div>
+          <h1 className="title gradient-text uppercase tracking-tighter">B.S. Computer Science</h1>
+          <p className="subtitle uppercase tracking-tight">College • 1 Year Dropout</p>
           <div className="stats-row">
             <div className="stat-item">
-              <span className="stat-value">3.9</span>
-              <span className="stat-label">GPA</span>
+              <span className="stat-value">Dropout</span>
+              <span className="stat-label uppercase tracking-widest">Status</span>
             </div>
             <div className="stat-item">
-              <span className="stat-value">Honors</span>
-              <span className="stat-label">Dean's List</span>
+              <span className="stat-value">1st Year</span>
+              <span className="stat-label uppercase tracking-widest">Duration</span>
             </div>
           </div>
-          <div className="edu-content">
-            <h3>Major Focus</h3>
-            <p>Distributed Systems & Machine Learning</p>
-            <h3>Thesis</h3>
-            <p className="italic text-dim">"Real-time data processing in edge computing environments"</p>
+          <div className="edu-content mt-8">
+            <div className="badge inline-block mb-4">ACADEMIC JOURNEY</div>
+            <p className="text-neutral-300 leading-relaxed">
+              Pursued a Bachelor of Science in Computer Science, completing the first year. 
+              Transitioned to self-taught and practical development following the first year of studies.
+            </p>
           </div>
         </div>
       </div>
@@ -630,29 +582,6 @@ export default function PortfolioIDE() {
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `// My Career Timeline\nimport React from 'react';`
-          },
-          {
-            name: 'Senior Developer',
-            type: 'file',
-            language: 'typescript',
-            icon: <FileCode size={14} color="#519aba" />,
-            content: `export const Experience = {
-  company: "Tech Solutions Inc.",
-  role: "Senior Software Engineer",
-  period: "2022 - Present",
-  description: "Leading the frontend team in building scalable web applications using Next.js and React."
-};`
-          },
-          {
-            name: 'Fullstack Dev',
-            type: 'file',
-            language: 'javascript',
-            icon: <FileCode size={14} color="#cbcb41" />,
-            content: `const fullstackRole = {
-  company: "WebCraft Agency",
-  role: "Fullstack Developer",
-  period: "2020 - 2022"
-};`
           }
         ]
       },
@@ -675,11 +604,11 @@ export default function PortfolioIDE() {
             content: `export const Secondary = {\n  school: "Government High School - Gandhi Nager",\n  period: "2019 - 2020",\n  focus: "General Secondary",\n  pct: "69%"\n};`
           },
           {
-            name: 'University.md',
+            name: 'College.tsx',
             type: 'file',
-            language: 'markdown',
-            icon: <BookOpen size={14} color="#00bcd4" />,
-            content: `# Higher Education\n\n## Bachelor of Science in Computer Science`
+            language: 'typescript',
+            icon: <Atom size={14} color="#00d8ff" />,
+            content: `export const College = {\n  degree: "B.S. Computer Science",\n  status: "1 Year Dropout"\n};`
           }
         ]
       },

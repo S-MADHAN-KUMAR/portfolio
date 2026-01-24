@@ -86,7 +86,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-          <p className="absolute bottom-1.5 left-1.5 right-1.5 text-[9px] font-black uppercase tracking-tighter text-white truncate drop-shadow-md">
+          <p className="absolute bottom-1.5 left-1.5 right-1.5 text-[9px] font-normal uppercase tracking-tighter text-white truncate drop-shadow-md">
             {title}
           </p>
         </div>
@@ -334,9 +334,9 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
             <div className="flex flex-col gap-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-2xl font-bold text-foreground tracking-tight">{currentProject?.title}</h3>
+                  <h3 className="text-2xl font-normal text-foreground tracking-tight">{currentProject?.title}</h3>
                   {currentProject?.date && (
-                    <p className="text-xs font-bold uppercase tracking-widest text-primary/80 mt-1">{currentProject.date}</p>
+                    <p className="text-xs font-normal uppercase tracking-widest text-primary/80 mt-1">{currentProject.date}</p>
                   )}
                 </div>
                 <div className="flex items-center gap-3">
@@ -346,7 +346,7 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
                      </a>
                    )}
                    {currentProject?.webapp && (
-                    <a href={currentProject.webapp} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-primary-foreground bg-primary hover:brightness-110 rounded-xl shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105 active:scale-95")}>
+                    <a href={currentProject.webapp} target="_blank" rel="noopener noreferrer" className={cn("flex items-center gap-2 px-5 py-2.5 text-xs font-normal uppercase tracking-widest text-primary-foreground bg-primary hover:brightness-110 rounded-xl shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105 active:scale-95")}>
                       <span>Visit Site</span>
                       <ExternalLink className="w-4 h-4" />
                     </a>
@@ -365,7 +365,7 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
                   {currentProject.tags.map((tag, i) => (
                     <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-muted rounded-lg border border-white/5 transition-colors hover:bg-muted/80">
                       {tag.image && <img src={tag.image} alt={tag.name} className="w-4 h-4 object-contain" />}
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">{tag.name}</span>
+                      <span className="text-[10px] font-normal uppercase tracking-wider text-muted-foreground">{tag.name}</span>
                     </div>
                   ))}
                 </div>
@@ -381,7 +381,7 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
                     />
                   ))}
                 </div>
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground/60">{internalIndex + 1} / {totalProjects}</p>
+                <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground/60">{internalIndex + 1} / {totalProjects}</p>
               </div>
             </div>
           </div>
@@ -451,10 +451,10 @@ const AnimatedFolder: React.FC<AnimatedFolderProps> = ({ title, projects, classN
           <div className="absolute w-32 h-24 rounded-lg overflow-hidden pointer-events-none" style={{ top: "calc(50% - 48px + 4px)", background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 60%)", transformOrigin: "bottom center", transform: isHovered ? "rotateX(35deg) translateY(12px)" : "rotateX(0deg) translateY(0)", transition: "transform 700ms cubic-bezier(0.16, 1, 0.3, 1)", zIndex: 31 }} />
         </div>
         <div className="text-center">
-          <h3 className="text-lg font-bold text-foreground mt-4 transition-all duration-500" style={{ transform: isHovered ? "translateY(2px)" : "translateY(0)", letterSpacing: isHovered ? "-0.01em" : "0" }}>{title}</h3>
-          <p className="text-sm font-medium text-muted-foreground transition-all duration-500" style={{ opacity: isHovered ? 0.8 : 1 }}>{projects.length} {projects.length === 1 ? 'project' : 'projects'}</p>
+          <h3 className="text-lg font-normal text-foreground mt-4 transition-all duration-500" style={{ transform: isHovered ? "translateY(2px)" : "translateY(0)", letterSpacing: isHovered ? "-0.01em" : "0" }}>{title}</h3>
+          <p className="text-sm font-normal text-muted-foreground transition-all duration-500" style={{ opacity: isHovered ? 0.8 : 1 }}>{projects.length} {projects.length === 1 ? 'project' : 'projects'}</p>
         </div>
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-muted-foreground/50 transition-all duration-500" style={{ opacity: isHovered ? 0 : 1, transform: isHovered ? "translateY(10px)" : "translateY(0)" }}>
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-xs font-normal uppercase tracking-widest text-muted-foreground/50 transition-all duration-500" style={{ opacity: isHovered ? 0 : 1, transform: isHovered ? "translateY(10px)" : "translateY(0)" }}>
           <span>Hover</span>
         </div>
       </div>

@@ -59,8 +59,8 @@ module.exports = {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			fontFamily: {
-				sans: ["ABC Diatype"],
-				mono: ["ABC Diatype"],
+				sans: ["ABC Diatype", "system-ui", "-apple-system", "sans-serif"],
+				mono: ["ABC Diatype", "system-ui", "-apple-system", "sans-serif"],
 			},
 		}
 	},
