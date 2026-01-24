@@ -48,7 +48,7 @@ import { FileTree } from '@/components/ui/file-tree';
 import { TubesBackground } from '@/components/ui/neon-flow';
 import { Timeline } from '@/components/ui/timeline';
 import SphereImageGrid from '@/components/ui/sphere-image-grid';
-import MultiOrbitSemiCircle from "@/components/ui/multi-orbit-semi-circle";
+import { LogoCloud } from "@/components/ui/logo-cloud-2";
 import ProjectUI, { PROJECT_CATEGORIES, type Project } from '@/components/ui/3d-folder';
 import { ExternalLink, MousePointer2 } from 'lucide-react';
 
@@ -370,8 +370,10 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
 
   if (file.name === 'skills.tsx') {
     return (
-      <div className="portfolio-ui-container overflow-hidden h-full p-0 flex flex-col items-center justify-center">
-        <MultiOrbitSemiCircle />
+      <div className="portfolio-ui-container overflow-y-auto h-full p-4 md:p-8 flex items-center justify-center">
+        <div className="w-full max-w-4xl">
+          <LogoCloud />
+        </div>
       </div>
     );
   }
@@ -621,7 +623,7 @@ export default function PortfolioIDE() {
             type: 'file',
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
-            content: `export const Skills = ["React", "Next.js", "TypeScript", "Node.js", "MongoDB", "GitHub", "Linux"];`
+            content: `export const Skills = ["React", "Next.js", "TypeScript", "Node.js", "MongoDB", "GitHub", "Linux", "Cursor", "Figma", "Neon", "Python", "Bun", "Expo", "AI/ML", "SQL", "MERN", "MCP", "Healthcare Dev"];`
           }
         ]
       },
