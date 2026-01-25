@@ -42,13 +42,21 @@ import {
   CornerDownLeft,
   SendHorizontal,
   Plus,
-  Atom
+  Atom,
+  Phone,
+  MapPin
 } from 'lucide-react';
 import { FileTree } from '@/components/ui/file-tree';
 import { TubesBackground } from '@/components/ui/neon-flow';
 import { Timeline } from '@/components/ui/timeline';
 import SphereImageGrid from '@/components/ui/sphere-image-grid';
 import { LogoCloud } from "@/components/ui/logo-cloud-2";
+import { HyperText } from '@/components/ui/hyper-text';
+import { ContactCard } from "@/components/ui/contact-card";
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import ProjectUI, { PROJECT_CATEGORIES, type Project } from '@/components/ui/3d-folder';
 import { ExternalLink, MousePointer2 } from 'lucide-react';
 
@@ -310,6 +318,34 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     );
   }
 
+  if (file.name === 'me.tsx') {
+    return (
+      <div className="portfolio-ui-container">
+        <div className="hero-section">
+          <div className="badge uppercase tracking-widest mb-4">Profile</div>
+          <HyperText 
+            text="Who Am I?" 
+            className="title gradient-text uppercase tracking-tighter mb-8"
+          />
+          
+          <div className="mt-4 p-8 rounded-2xl bg-neutral-900/40 border border-neutral-800 backdrop-blur-md">
+            <div className="space-y-6">
+              <p className="text-neutral-200 leading-relaxed text-lg font-light">
+                <span className="text-accent font-medium uppercase tracking-widest text-[10px] block mb-2 opacity-70">Professional Overview</span>
+                As a fresh and result-oriented web developer, I bring a strong foundation in frontend technologies and a deep interest in building responsive, user-friendly web applications. I enjoy turning creative ideas into clean, functional designs and continuously improving my skills through real-world projects and consistent practice. My goal is to contribute to meaningful web projects and grow into a highly skilled frontend developer.
+              </p>
+
+              <p className="text-neutral-200 leading-relaxed text-lg font-light">
+                <span className="text-accent font-medium uppercase tracking-widest text-[10px] block mb-2 opacity-70">Core Mission</span>
+                My goal is to become a well-rounded frontend developer, capable of crafting modern, scalable, and accessible web applications that solve real problems. I'm excited to take on new challenges and grow with a team that values creativity, performance, and continuous improvement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (file.name === 'HigherSecondary.tsx') {
     return (
       <div className="portfolio-ui-container">
@@ -474,6 +510,59 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container overflow-y-auto h-full p-0">
         <ProjectUI onProjectSelect={onProjectSelect} />
+      </div>
+    );
+  }
+
+  if (file.name === 'contact.tsx') {
+    return (
+      <div className="portfolio-ui-container overflow-y-auto h-full p-4 md:p-8">
+        <div className="max-w-5xl mx-auto">
+          <ContactCard
+            title="Get in touch"
+            description="If you have any questions regarding our Services or need help, please fill out the form here. We do our best to respond within 1 business day."
+            contactInfo={[
+              {
+                icon: Mail,
+                label: 'Email',
+                value: 'contact@21st.dev',
+              },
+              {
+                icon: Phone,
+                label: 'Phone',
+                value: '+92 312 1234567',
+              },
+              {
+                icon: MapPin,
+                label: 'Address',
+                value: 'Faisalabad, Pakistan',
+                className: 'col-span-2',
+              }
+            ]}
+          >
+            <form action="" className="w-full space-y-4">
+              <div className="flex flex-col gap-2">
+                <Label className="text-neutral-400">Name</Label>
+                <Input type="text" className="bg-neutral-900 border-neutral-800 text-white" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label className="text-neutral-400">Email</Label>
+                <Input type="email" className="bg-neutral-900 border-neutral-800 text-white" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label className="text-neutral-400">Phone</Label>
+                <Input type="phone" className="bg-neutral-900 border-neutral-800 text-white" />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label className="text-neutral-400">Message</Label>
+                <Textarea className="bg-neutral-900 border-neutral-800 text-white" />
+              </div>
+              <Button className="w-full bg-accent hover:bg-accent/90 text-black font-medium" type="button">
+                Submit
+              </Button>
+            </form>
+          </ContactCard>
+        </div>
       </div>
     );
   }
@@ -697,7 +786,10 @@ export default function PortfolioIDE() {
             type: 'file',
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
-            content: `export const AboutMe = "I am a passionate developer...";`
+            content: `export const AboutMe = {
+  description: "As a fresh and result-oriented web developer, I bring a strong foundation in frontend technologies and a deep interest in building responsive, user-friendly web applications. I enjoy turning creative ideas into clean, functional designs and continuously improving my skills through real-world projects and consistent practice. My goal is to contribute to meaningful web projects and grow into a highly skilled frontend developer.",
+  goal: "My goal is to become a well-rounded frontend developer, capable of crafting modern, scalable, and accessible web applications that solve real problems. I'm excited to take on new challenges and grow with a team that values creativity, performance, and continuous improvement."
+};`
           }
         ]
       },
@@ -706,11 +798,11 @@ export default function PortfolioIDE() {
         type: 'folder',
         children: [
           {
-            name: 'socials.tsx',
+            name: 'contact.tsx',
             type: 'file',
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
-            content: `export const Socials = { github: "...", twitter: "..." };`
+            content: `export const Contact = () => { /* Contact Form */ };`
           }
         ]
       }
