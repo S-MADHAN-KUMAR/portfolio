@@ -34,6 +34,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
+    
     <div
       className="w-full bg-transparent md:px-10"
       ref={containerRef}

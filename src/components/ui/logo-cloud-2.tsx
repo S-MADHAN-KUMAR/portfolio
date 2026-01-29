@@ -1,6 +1,6 @@
 import { PlusIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 
 type Logo = {
   src: string;
@@ -9,7 +9,7 @@ type Logo = {
   height?: number;
 };
 
-type LogoCloudProps = React.ComponentProps<"div">;
+type LogoCloudProps = HTMLMotionProps<"div">;
 
 export function LogoCloud({ className, ...props }: LogoCloudProps) {
   const containerVariants = {
@@ -244,8 +244,9 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
   );
 }
 
-type LogoCardProps = React.ComponentProps<typeof motion.div> & {
+type LogoCardProps = Omit<HTMLMotionProps<"div">, "children"> & {
   logo: Logo;
+  children?: React.ReactNode;
 };
 
 function LogoCard({ logo, className, children, variants, ...props }: LogoCardProps) {
