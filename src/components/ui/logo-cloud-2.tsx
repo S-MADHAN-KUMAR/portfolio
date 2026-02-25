@@ -1,6 +1,7 @@
 import { PlusIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, HTMLMotionProps } from "framer-motion";
+import { HyperText } from "./hyper-text";
 
 type Logo = {
   src: string;
@@ -33,9 +34,7 @@ export function LogoCloud({ className, ...props }: LogoCloudProps) {
         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white italic uppercase tracking-tighter">
           Technical Arsenal
         </h2>
-        <p className="text-neutral-500 max-w-[600px] text-sm md:text-base uppercase tracking-widest font-mono">
-          Tools, frameworks & technologies I use to bring ideas to life
-        </p>
+        <HyperText text="Tools, frameworks & technologies I use to bring ideas to life" />
       </div>
 
       <motion.div

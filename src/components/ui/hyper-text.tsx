@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface HyperTextProps {
-  text: string;
+  text?: string;
   duration?: number;
   framerProps?: Variants;
   className?: string;
@@ -18,7 +18,7 @@ const alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 
 export function HyperText({
-  text,
+  text = "",
   duration = 800,
   framerProps = {
     initial: { opacity: 0, y: -10 },
@@ -28,10 +28,15 @@ export function HyperText({
   className,
   animateOnLoad = true,
 }: HyperTextProps) {
-  const [displayText, setDisplayText] = useState(text.split(""));
+  const safeText = text ?? "";
+  const [displayText, setDisplayText] = useState(() => safeText.split(""));
   const [trigger, setTrigger] = useState(false);
   const interations = useRef(0);
   const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    setDisplayText(safeText.split(""));
+  }, [safeText]);
 
   const triggerAnimation = () => {
     interations.current = 0;
@@ -46,13 +51,13 @@ export function HyperText({
           isFirstRender.current = false;
           return;
         }
-        if (interations.current < text.length) {
+        if (interations.current < safeText.length) {
           setDisplayText((t) =>
             t.map((l, i) =>
               l === " "
                 ? l
                 : i <= interations.current
-                  ? text[i]
+                  ? safeText[i] ?? alphabets[getRandomInt(26)]
                   : alphabets[getRandomInt(26)],
             ),
           );
@@ -62,11 +67,11 @@ export function HyperText({
           clearInterval(interval);
         }
       },
-      duration / (text.length * 10),
+      duration / (Math.max(safeText.length, 1) * 10),
     );
     // Clean up interval on unmount
     return () => clearInterval(interval);
-  }, [text, duration, trigger, animateOnLoad]);
+  }, [safeText, duration, trigger, animateOnLoad]);
 
   return (
     <div
@@ -80,7 +85,7 @@ export function HyperText({
             className={cn("font-mono", letter === " " ? "w-3" : "", className)}
             {...framerProps}
           >
-            {letter.toUpperCase()}
+            {(letter ?? "").toUpperCase()}
           </motion.span>
         ))}
       </AnimatePresence>

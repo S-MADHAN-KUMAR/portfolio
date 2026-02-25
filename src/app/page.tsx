@@ -50,7 +50,6 @@ import { FileTree } from '@/components/ui/file-tree';
 import { TubesBackground } from '@/components/ui/neon-flow';
 import { Timeline } from '@/components/ui/timeline';
 import SphereImageGrid from '@/components/ui/sphere-image-grid';
-import { LogoCloud } from "@/components/ui/logo-cloud-2";
 import { HyperText } from '@/components/ui/hyper-text';
 import { ContactCard } from "@/components/ui/contact-card";
 import { Input } from '@/components/ui/input';
@@ -85,16 +84,12 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
       <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 bg-accent/20 text-accent text-[10px] font-normal uppercase tracking-widest rounded">
-                Project Detail
-              </span>
-              <span className="text-neutral-500 font-mono text-[10px]">{project.category}</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl font-normal text-white tracking-tighter uppercase italic drop-shadow-sm">
-              {project.title}
-            </h1>
+          <div >
+            
+            <HyperText 
+            text={project.title} 
+            className="title gradient-text uppercase tracking-tighter mb-8"
+          />
             <p className="text-accent font-normal uppercase tracking-widest text-xs opacity-80">
               {project.date}
             </p>
@@ -117,10 +112,10 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
                 href={project.webapp} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="flex items-center gap-2 px-4 py-2 bg-accent text-black rounded-lg text-sm font-normal hover:brightness-110 transition-all shadow-[0_0_20px_rgba(var(--accent-rgb),0.3)]"
+                className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg text-black  "
               >
                 <ExternalLink size={16} />
-                <span>LAUNCH SITE</span>
+                <span className='font-semibold'>LAUNCH SITE</span>
               </a>
             )}
           </div>
@@ -293,19 +288,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-          <div className="badge">HIGHER EDUCATION</div>
           <h1 className="title gradient-text uppercase tracking-tighter">B.S. Computer Science</h1>
           <p className="subtitle uppercase tracking-tight">College • 1 Year Dropout</p>
-          <div className="stats-row">
-            <div className="stat-item">
-              <span className="stat-value">Dropout</span>
-              <span className="stat-label uppercase tracking-widest">Status</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-value">1st Year</span>
-              <span className="stat-label uppercase tracking-widest">Duration</span>
-            </div>
-          </div>
+          
           <div className="edu-content mt-8">
             <div className="badge inline-block mb-4">ACADEMIC JOURNEY</div>
             <p className="text-neutral-300 leading-relaxed">
@@ -313,6 +298,7 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
               Transitioned to self-taught and practical development following the first year of studies.
             </p>
           </div>
+          <p className="text-neutral-300 leading-relaxed text-lg mt-4"><span className="text-blue-500 font-bold italic">1 Year </span>Dropout</p>
         </div>
       </div>
     );
@@ -322,21 +308,21 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-          <div className="badge uppercase tracking-widest mb-4">Profile</div>
+    
           <HyperText 
             text="Who Am I?" 
             className="title gradient-text uppercase tracking-tighter mb-8"
           />
           
-          <div className="mt-4 p-8 rounded-2xl bg-neutral-900/40 border border-neutral-800 backdrop-blur-md">
+          <div>
             <div className="space-y-6">
               <p className="text-neutral-200 leading-relaxed text-lg font-light">
-                <span className="text-accent font-medium uppercase tracking-widest text-[10px] block mb-2 opacity-70">Professional Overview</span>
+                <span className="text-accent font-medium uppercase tracking-widest  block mb-2 opacity-70">Professional Overview</span>
                 As a fresh and result-oriented web developer, I bring a strong foundation in frontend technologies and a deep interest in building responsive, user-friendly web applications. I enjoy turning creative ideas into clean, functional designs and continuously improving my skills through real-world projects and consistent practice. My goal is to contribute to meaningful web projects and grow into a highly skilled frontend developer.
               </p>
 
               <p className="text-neutral-200 leading-relaxed text-lg font-light">
-                <span className="text-accent font-medium uppercase tracking-widest text-[10px] block mb-2 opacity-70">Core Mission</span>
+                <span className="text-accent font-medium uppercase tracking-widest  block mb-2 opacity-70">Core Mission</span>
                 My goal is to become a well-rounded frontend developer, capable of crafting modern, scalable, and accessible web applications that solve real problems. I'm excited to take on new challenges and grow with a team that values creativity, performance, and continuous improvement.
               </p>
             </div>
@@ -350,18 +336,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-          <div className="badge uppercase tracking-widest">HIGHER SECONDARY</div>
           <h1 className="title gradient-text uppercase tracking-tighter">Voc Government Hr.Sec.School</h1>
           <p className="subtitle uppercase tracking-tight">Commerce & Auditing • 2021 - 2022</p>
           <div className="stats-row">
-            <div className="stat-item">
-              <span className="stat-value">79%</span>
-              <span className="stat-label uppercase tracking-widest">Percentile</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-value">Puducherry</span>
-              <span className="stat-label uppercase tracking-widest">Location</span>
-            </div>
           </div>
           <div className="edu-content mt-8">
             <div className="badge inline-block mb-4">ACADEMIC FOCUS</div>
@@ -369,6 +346,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
               Specialized in Commerce and Auditing during higher secondary education, 
               building a strong foundation in financial principles and analytical thinking.
             </p>
+
+            <p className="text-neutral-300 leading-relaxed text-lg mt-4"><span className="text-blue-500 font-bold italic">79% </span>Perentage in Commerce and Auditing</p>
+          
           </div>
         </div>
       </div>
@@ -379,19 +359,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-          <div className="badge uppercase tracking-widest">SECONDARY EDUCATION</div>
           <h1 className="title gradient-text uppercase tracking-tighter">Government High School</h1>
           <p className="subtitle uppercase tracking-tight">Gandhi Nager • 2019 - 2020</p>
-          <div className="stats-row">
-            <div className="stat-item">
-              <span className="stat-value">69%</span>
-              <span className="stat-label uppercase tracking-widest">Percentile</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-value">Puducherry</span>
-              <span className="stat-label uppercase tracking-widest">Location</span>
-            </div>
-          </div>
+        
           <div className="edu-content mt-8">
             <div className="badge inline-block mb-4">ACHIEVEMENTS</div>
             <p className="text-neutral-300 leading-relaxed">
@@ -399,16 +369,49 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
               and foundational learning at Government High School, Gandhi Nager.
             </p>
           </div>
+          <p className="text-neutral-300 leading-relaxed text-lg mt-4"><span className="text-blue-500 font-bold italic">69% </span>Perentage in General Secondary Education</p>
         </div>
       </div>
     );
   }
 
   if (file.name === 'skills.tsx') {
+    const skillItems: { name: string; icon: string }[] = [
+      { name: "React", icon: "https://cdn.simpleicons.org/react/61DAFB" },
+      { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs/ffffff" },
+      { name: "TypeScript", icon: "https://cdn.simpleicons.org/typescript/3178C6" },
+      { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs/339933" },
+      { name: "MongoDB", icon: "https://cdn.simpleicons.org/mongodb/47A248" },
+      { name: "GitHub", icon: "https://cdn.simpleicons.org/github/ffffff" },
+      { name: "Linux", icon: "https://cdn.simpleicons.org/linux/FCC624" },
+      { name: "Cursor", icon: "https://cdn.simpleicons.org/cursor/000000" },
+      { name: "Figma", icon: "https://cdn.simpleicons.org/figma/F24E1E" },
+      { name: "Neon", icon: "https://cdn.simpleicons.org/neon/00E599" },
+      { name: "Python", icon: "https://cdn.simpleicons.org/python/3776AB" },
+      { name: "Bun", icon: "https://cdn.simpleicons.org/bun/FAF0E6" },
+      { name: "Expo", icon: "https://cdn.simpleicons.org/expo/000020" },
+      { name: "AI/ML", icon: "https://cdn.simpleicons.org/openai/412991" },
+      { name: "SQL", icon: "https://cdn.simpleicons.org/postgresql/4169E1" },
+      { name: "MERN", icon: "https://cdn.simpleicons.org/react/61DAFB" },
+      { name: "MCP", icon: "https://cdn.simpleicons.org/socketdotio/010101" },
+      { name: "Healthcare Dev", icon: "https://cdn.simpleicons.org/gnuhealth/00A4D3" },
+    ];
     return (
-      <div className="portfolio-ui-container overflow-y-auto h-full p-4 md:p-8 flex items-center justify-center">
-        <div className="w-full max-w-4xl">
-          <LogoCloud />
+      <div className="portfolio-ui-container overflow-y-auto h-full p-6 md:p-8">
+        <div className="w-full max-w-5xl mx-auto">
+         
+          <HyperText text="Tools, frameworks & technologies" className="title gradient-text mb-2" />
+          <p className="text-[var(--fg-dim)] text-sm mb-8 max-w-xl">Technologies I use to bring ideas to life.</p>
+          <div className="skills-cards-grid">
+            {skillItems.map((skill) => (
+              <div key={skill.name} className="skill-card">
+                <div className="skill-card-icon">
+                  <img src={skill.icon} alt={skill.name} width={32} height={32} />
+                </div>
+                <span className="skill-card-name">{skill.name}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );
@@ -447,8 +450,10 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-          <div className="badge">DOCUMENTATION</div>
-          <h1 className="title gradient-text">Portfolio Guide</h1>
+          <HyperText 
+            text="portfolio guide" 
+             className="title gradient-text uppercase tracking-tighter mb-8"
+          />
           <div className="description">
             <p>Welcome to my interactive portfolio. This project is built to demonstrate my skills in: </p>
             <ul style={{ paddingLeft: '20px', marginTop: '12px' }}>
@@ -458,8 +463,8 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
               <li>Real-time Visualization</li>
             </ul>
           </div>
-          <div className="achievement-card" style={{ marginTop: '20px' }}>
-            <Info size={16} className="text-accent" />
+          <div className="achievement-card ">
+            <Info size={24} className="text-accent" />
             <span>Hint: Use the search bar or chat with the AI to learn more about my background.</span>
           </div>
         </div>
@@ -484,15 +489,17 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-          <div className="badge">CONFIG</div>
-          <h1 className="title gradient-text">Project Config</h1>
+          <HyperText 
+            text="Project Config" 
+            className="title gradient-text uppercase tracking-tighter mb-8"
+          />
           <div className="skills-grid">
             {Object.entries(deps).map(([category, items]) => (
               <div key={category} className="skills-category-card">
                 <h3>{category}</h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {Object.entries(items).map(([pkg, ver]) => (
-                    <div key={pkg} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '13px' }}>
+                    <div key={pkg} style={{ display: 'flex', justifyContent: 'space-between' }}>
                       <span style={{ color: 'var(--accent)' }}>{pkg}</span>
                       <span style={{ color: 'var(--fg-dim)' }}>{ver}</span>
                     </div>
@@ -516,54 +523,21 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
 
   if (file.name === 'contact.tsx') {
     return (
-      <div className="portfolio-ui-container overflow-y-auto h-full p-4 md:p-8">
-        <div className="max-w-5xl mx-auto">
-          <ContactCard
-            title="Get in touch"
-            description="If you have any questions regarding our Services or need help, please fill out the form here. We do our best to respond within 1 business day."
-            contactInfo={[
-              {
-                icon: Mail,
-                label: 'Email',
-                value: 'contact@21st.dev',
-              },
-              {
-                icon: Phone,
-                label: 'Phone',
-                value: '+92 312 1234567',
-              },
-              {
-                icon: MapPin,
-                label: 'Address',
-                value: 'Faisalabad, Pakistan',
-                className: 'col-span-2',
-              }
-            ]}
-          >
-            <form action="" className="w-full space-y-4">
-              <div className="flex flex-col gap-2">
-                <Label className="text-neutral-400">Name</Label>
-                <Input type="text" className="bg-neutral-900 border-neutral-800 text-white" />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label className="text-neutral-400">Email</Label>
-                <Input type="email" className="bg-neutral-900 border-neutral-800 text-white" />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label className="text-neutral-400">Phone</Label>
-                <Input type="phone" className="bg-neutral-900 border-neutral-800 text-white" />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label className="text-neutral-400">Message</Label>
-                <Textarea className="bg-neutral-900 border-neutral-800 text-white" />
-              </div>
-              <Button className="w-full bg-accent hover:bg-accent/90 text-black font-medium" type="button">
-                Submit
-              </Button>
-            </form>
-          </ContactCard>
+        <div className="portfolio-ui-container flex flex-col items-center text-center overflow-y-auto h-full p-4 md:p-8">
+        <HyperText 
+            text="Get in touch" 
+            className=" title gradient-text uppercase tracking-tighter mb-8"
+          />
+          <div className="description">
+            <p>If you have any questions or want to work with me, please fill out the form below or contact me via email or LinkedIn.</p>
+          </div>
+          <div className="contact-form flex flex-col gap-4 min-w-[40vw] ">
+            <Input type="text" placeholder="Name" />
+            <Input type="email" placeholder="Email" />
+            <Textarea placeholder="Message" />
+            <Button type="submit">Send</Button>
+          </div>
         </div>
-      </div>
     );
   }
 
@@ -941,13 +915,16 @@ export default function PortfolioIDE() {
 
       {/* Activity Bar */}
       <aside className="activity-bar">
-        <Files size={24} color={isSidebarVisible ? "#fff" : "var(--fg-dim)"} onClick={() => setIsSidebarVisible(!isSidebarVisible)} style={{ cursor: 'pointer' }} />
-        <Search size={24} color="var(--fg-dim)" />
-        <GitBranch size={24} color="var(--fg-dim)" />
-        <Boxes size={24} color="var(--fg-dim)" />
+        <div className="flex flex-col gap-4 mt-2
+        ">
+          <Files size={24} color={isSidebarVisible ? "#fff" : "var(--fg-dim)"} onClick={() => setIsSidebarVisible(!isSidebarVisible)} style={{ cursor: 'pointer' }} className='cursor-pointer ' />
+        <Search size={24} color="var(--fg-dim)"  className='cursor-pointer'/>
+        <GitBranch size={24} color="var(--fg-dim)"  className='cursor-pointer'/>
+        <Boxes size={24} color="var(--fg-dim)"  className='cursor-pointer'/>
+        </div>
         <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '20px', paddingBottom: '20px' }}>
-          <User size={24} color="var(--fg-dim)" />
-          <Settings size={24} color="var(--fg-dim)" />
+          <User size={24} color="var(--fg-dim)" className='cursor-pointer' />
+          <Settings size={24} color="var(--fg-dim)" className='cursor-pointer' />
         </div>
       </aside>
 
@@ -1152,10 +1129,9 @@ export default function PortfolioIDE() {
                     )}
                   </div>
                   
-                  <Hammer size={14} className="action-icon" />
+            
                 </div>
                 <div className="control-group">
-                  <CornerDownLeft size={14} className="action-icon" />
                   <SendHorizontal size={14} className="action-icon" />
                 </div>
               </div>
