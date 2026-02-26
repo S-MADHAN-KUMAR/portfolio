@@ -297,6 +297,8 @@ body {
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
 }
 
 .status-bar {
@@ -845,8 +847,11 @@ body {
   flex-direction: column;
   flex: 1;
   min-height: 0;
-  padding: 16px;
+  padding: 16px 12px 16px 16px;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .chat-messages {

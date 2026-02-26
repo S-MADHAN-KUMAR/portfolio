@@ -1235,7 +1235,7 @@ export default function PortfolioIDE() {
 
       {/* Right Panel (AI Chat) */}
       <aside className="right-panel">
-        <div className="tabs-container" style={{ justifyContent: 'space-between', paddingRight: '12px' }}>
+        <div className="tabs-container" style={{ justifyContent: 'space-between', paddingLeft: '12px', paddingRight: '8px' }}>
           <div className="tab active" style={{ minWidth: 'auto', border: 'none' }}>Composer</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
            
