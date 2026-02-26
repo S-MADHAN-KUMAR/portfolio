@@ -6,7 +6,7 @@ const MODEL = "google/gemma-3n-e2b-it:free";
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.OPENROUTER_API_KEY || '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';
+    const apiKey = process.env.OPENROUTER_API_KEY 
     if (!apiKey) {
       return NextResponse.json(
         { error: "OPENROUTER_API_KEY is not set. Add it to your .env file in the project root." },
