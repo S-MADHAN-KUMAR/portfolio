@@ -733,12 +733,10 @@ export default function PortfolioIDE() {
   const [resizingPanel, setResizingPanel] = useState<'sidebar' | 'chat' | null>(null);
 
   // Composer State
-  const [selectedAgent, setSelectedAgent] = useState('Auto');
-  const [selectedModel, setSelectedModel] = useState('Llama 3.3 70B');
+  const [selectedAgent, setSelectedAgent] = useState('Agent');
   const [isAgentMenuOpen, setIsAgentMenuOpen] = useState(false);
-  const [isModelMenuOpen, setIsModelMenuOpen] = useState(false);
 
-  // Chat state (Groq portfolio AI)
+  // Chat state (OpenRouter / Gemma portfolio AI)
   type ChatMessage = { role: 'user' | 'assistant'; content: string };
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState('');
@@ -774,7 +772,7 @@ export default function PortfolioIDE() {
     } catch (err) {
       setChatMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: `Sorry, something went wrong: ${err instanceof Error ? err.message : 'Unknown error'}. Make sure GROQ_API_KEY is set in your .env file.` },
+        { role: 'assistant', content: `Sorry, something went wrong: ${err instanceof Error ? err.message : 'Unknown error'}. Make sure OPENROUTER_API_KEY is set in your .env file.` },
       ]);
     } finally {
       setIsChatLoading(false);
@@ -1250,7 +1248,7 @@ export default function PortfolioIDE() {
             <span>Ask the AI about me...</span>
           </div>
 
-          <div className="chat-messages" style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', minHeight: 0 }}>
+          <div className="chat-messages">
             {chatMessages.length === 0 && (
               <>
                 <div className="chat-bubble">
@@ -1321,7 +1319,7 @@ export default function PortfolioIDE() {
                     </div>
                     {isAgentMenuOpen && (
                       <div className="dropdown-menu">
-                        {['Auto', 'Ask', 'Plan', 'Debug'].map((opt) => (
+                        {['Agent', 'Ask', 'Plan', 'Debug'].map((opt) => (
                           <div
                             key={opt}
                             className="menu-item"
@@ -1336,30 +1334,8 @@ export default function PortfolioIDE() {
                       </div>
                     )}
                   </div>
-                  <div className="dropdown-container">
-                    <div
-                      className="dropdown-pill"
-                      onClick={() => setIsModelMenuOpen(!isModelMenuOpen)}
-                    >
-                      <span>{selectedModel}</span>
-                      <ChevronDown size={12} />
-                    </div>
-                    {isModelMenuOpen && (
-                      <div className="dropdown-menu">
-                        {['Llama 3.3 70B', 'Llama 3.1 8B', 'Mixtral 8x7B'].map((opt) => (
-                          <div
-                            key={opt}
-                            className="menu-item"
-                            onClick={() => {
-                              setSelectedModel(opt);
-                              setIsModelMenuOpen(false);
-                            }}
-                          >
-                            {opt}
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                  <div className="dropdown-pill" style={{ cursor: 'default', opacity: 0.9 }}>
+                    <span>Auto</span>
                   </div>
                 </div>
                 <div className="control-group">
