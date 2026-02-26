@@ -846,6 +846,19 @@ body {
   overflow-y: auto;
 }
 
+.typing-cursor {
+  display: inline-block;
+  margin-left: 1px;
+  animation: typing-blink 0.7s step-end infinite;
+  color: var(--accent);
+}
+
+@keyframes typing-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 .composer-footer {
   margin-top: auto;
   padding-top: 20px;

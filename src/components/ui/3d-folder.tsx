@@ -96,6 +96,74 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
 );
 ProjectCard.displayName = "ProjectCard";
 
+export interface SkillPreviewItem {
+  icon: string;
+  iconFallback?: string;
+  name: string;
+}
+
+interface SkillPreviewCardProps {
+  icon: string;
+  iconFallback: string;
+  name: string;
+  delay: number;
+  isVisible: boolean;
+  index: number;
+  totalCount: number;
+}
+
+const SkillPreviewCard: React.FC<SkillPreviewCardProps> = ({
+  icon,
+  iconFallback,
+  name,
+  delay,
+  isVisible,
+  index,
+  totalCount,
+}) => {
+  const [src, setSrc] = useState(icon);
+  const middleIndex = (totalCount - 1) / 2;
+  const factor = totalCount > 1 ? (index - middleIndex) / middleIndex : 0;
+  const rotation = factor * 25;
+  const translationX = factor * 85;
+  const translationY = Math.abs(factor) * 12;
+
+  return (
+    <div
+      className="absolute w-20 h-28 pointer-events-none"
+      style={{
+        transform: isVisible
+          ? `translateY(calc(-100px + ${translationY}px)) translateX(${translationX}px) rotate(${rotation}deg) scale(1)`
+          : "translateY(0px) translateX(0px) rotate(0deg) scale(0.4)",
+        opacity: isVisible ? 1 : 0,
+        transition: `all 700ms cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+        zIndex: 20 + index,
+        left: "-40px",
+        top: "-56px",
+      }}
+    >
+      <div
+        className={cn(
+          "w-full h-full rounded-lg overflow-hidden shadow-xl bg-card border border-white/10 relative flex flex-col items-center justify-center p-2",
+          "transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        )}
+      >
+        <div className="flex-1 flex items-center justify-center w-full min-h-0">
+          <img
+            src={src}
+            alt={name}
+            className="w-10 h-10 object-contain"
+            onError={() => setSrc(iconFallback)}
+          />
+        </div>
+        <p className="text-[9px] font-normal uppercase tracking-tighter text-foreground truncate w-full text-center">
+          {name}
+        </p>
+      </div>
+    </div>
+  );
+};
+
 interface ImageLightboxProps {
   projects: Project[];
   currentIndex: number;
@@ -386,6 +454,157 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+export interface CategoryFolderCardProps {
+  title: string;
+  count: number;
+  countLabel?: string;
+  gradient: string;
+  className?: string;
+  onClick?: () => void;
+  hint?: string;
+  previewItems?: SkillPreviewItem[];
+}
+
+export const CategoryFolderCard: React.FC<CategoryFolderCardProps> = ({
+  title,
+  count,
+  countLabel = "items",
+  gradient,
+  className,
+  onClick,
+  hint = "Hover",
+  previewItems = [],
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const backBg = gradient;
+  const tabBg = gradient;
+  const frontBg = gradient;
+  const colorMatch = gradient.match(/#[a-fA-F0-9]{3,6}/)?.[0];
+  const previewList = previewItems.slice(0, 5);
+
+  return (
+    <div
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } } : undefined}
+      className={cn(
+        "relative flex flex-col items-center justify-center p-8 rounded-2xl bg-card border border-border transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        onClick && "cursor-pointer hover:shadow-2xl hover:shadow-accent/20 hover:border-accent/40",
+        className
+      )}
+      style={{
+        minWidth: "280px",
+        minHeight: "320px",
+        perspective: "1200px",
+        transform: isHovered ? "scale(1.04) rotate(-1.5deg)" : "scale(1) rotate(0deg)",
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+    >
+      <div
+        className="absolute inset-0 rounded-2xl transition-opacity duration-700"
+        style={{
+          background: colorMatch
+            ? `radial-gradient(circle at 50% 70%, ${colorMatch} 0%, transparent 70%)`
+            : "radial-gradient(circle at 50% 70%, var(--accent) 0%, transparent 70%)",
+          opacity: isHovered ? 0.12 : 0,
+        }}
+      />
+      <div className="relative flex items-center justify-center mb-4" style={{ height: "160px", width: "200px" }}>
+        <div
+          className="absolute w-32 h-24 rounded-lg shadow-md border border-white/10"
+          style={{
+            background: backBg,
+            filter: "brightness(0.9)",
+            transformOrigin: "bottom center",
+            transform: isHovered ? "rotateX(-20deg) scaleY(1.05)" : "rotateX(0deg) scaleY(1)",
+            transition: "transform 700ms cubic-bezier(0.16, 1, 0.3, 1)",
+            zIndex: 10,
+          }}
+        />
+        <div
+          className="absolute w-12 h-4 rounded-t-md border-t border-x border-white/10"
+          style={{
+            background: tabBg,
+            filter: "brightness(0.85)",
+            top: "calc(50% - 48px - 12px)",
+            left: "calc(50% - 64px + 16px)",
+            transformOrigin: "bottom center",
+            transform: isHovered ? "rotateX(-30deg) translateY(-3px)" : "rotateX(0deg) translateY(0)",
+            transition: "transform 700ms cubic-bezier(0.16, 1, 0.3, 1)",
+            zIndex: 10,
+          }}
+        />
+        {previewList.length > 0 && (
+          <div className="absolute" style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 20 }}>
+            {previewList.map((item, index) => (
+              <SkillPreviewCard
+                key={item.name + index}
+                icon={item.icon}
+                iconFallback={item.iconFallback ?? item.icon}
+                name={item.name}
+                delay={index * 50}
+                isVisible={isHovered}
+                index={index}
+                totalCount={previewList.length}
+              />
+            ))}
+          </div>
+        )}
+        <div
+          className="absolute w-32 h-24 rounded-lg shadow-lg border border-white/20"
+          style={{
+            background: frontBg,
+            top: "calc(50% - 48px + 4px)",
+            transformOrigin: "bottom center",
+            transform: isHovered ? "rotateX(35deg) translateY(12px)" : "rotateX(0deg) translateY(0)",
+            transition: "transform 700ms cubic-bezier(0.16, 1, 0.3, 1)",
+            zIndex: 30,
+          }}
+        />
+        <div
+          className="absolute w-32 h-24 rounded-lg overflow-hidden pointer-events-none"
+          style={{
+            top: "calc(50% - 48px + 4px)",
+            background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 60%)",
+            transformOrigin: "bottom center",
+            transform: isHovered ? "rotateX(35deg) translateY(12px)" : "rotateX(0deg) translateY(0)",
+            transition: "transform 700ms cubic-bezier(0.16, 1, 0.3, 1)",
+            zIndex: 31,
+          }}
+        />
+      </div>
+      <div className="text-center">
+        <h3
+          className="text-lg font-normal text-foreground mt-4 transition-all duration-500"
+          style={{
+            transform: isHovered ? "translateY(2px)" : "translateY(0)",
+            letterSpacing: isHovered ? "-0.01em" : "0",
+          }}
+        >
+          {title}
+        </h3>
+        <p
+          className="text-sm font-normal text-muted-foreground transition-all duration-500"
+          style={{ opacity: isHovered ? 0.8 : 1 }}
+        >
+          {count} {count === 1 ? countLabel.replace(/s$/, "") : countLabel}
+        </p>
+      </div>
+      <div
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 text-xs font-normal uppercase tracking-widest text-muted-foreground/50 transition-all duration-500"
+        style={{
+          opacity: isHovered ? 0 : 1,
+          transform: isHovered ? "translateY(10px)" : "translateY(0)",
+        }}
+      >
+        <span>{hint}</span>
       </div>
     </div>
   );

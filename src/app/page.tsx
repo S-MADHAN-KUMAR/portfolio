@@ -56,8 +56,220 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import ProjectUI, { PROJECT_CATEGORIES, type Project } from '@/components/ui/3d-folder';
+import ProjectUI, { PROJECT_CATEGORIES, CategoryFolderCard, type Project } from '@/components/ui/3d-folder';
 import { ExternalLink, MousePointer2 } from 'lucide-react';
+import { skillsData, skillCategories, type Skill } from '@/data/skills';
+
+function TypingText({ text, speed = 12, className = "" }: { text: string; speed?: number; className?: string }) {
+  const [visibleLength, setVisibleLength] = useState(0);
+
+  React.useEffect(() => {
+    if (visibleLength >= text.length) return;
+    const t = setInterval(() => {
+      setVisibleLength((prev) => {
+        if (prev >= text.length) return prev;
+        return Math.min(prev + 1, text.length);
+      });
+    }, speed);
+    return () => clearInterval(t);
+  }, [text.length, visibleLength, speed]);
+
+  React.useEffect(() => {
+    setVisibleLength(0);
+  }, [text]);
+
+  const visible = text.slice(0, visibleLength);
+  const isComplete = visibleLength >= text.length;
+
+  return (
+    <span className={className}>
+      {visible}
+      {!isComplete && <span className="typing-cursor" aria-hidden>|</span>}
+    </span>
+  );
+}
+
+function SkillIcon({ icon, iconFallback, name }: { icon: string; iconFallback: string; name: string }) {
+  const [src, setSrc] = useState(icon);
+  return (
+    <img
+      src={src}
+      alt={name}
+      width={32}
+      height={32}
+      onError={() => setSrc(iconFallback)}
+    />
+  );
+}
+
+const MAX_SKILL_FOLDERS = 6;
+
+const SKILL_FOLDER_GROUPS: { label: string; color: string; categories: string[] }[] = [
+  { label: "AI Tools", color: "#7C3AED", categories: ["AI Tools"] },
+  { label: "Languages", color: "#F59E0B", categories: ["Languages"] },
+  { label: "Frontend & Mobile", color: "#06B6D4", categories: ["Frontend", "Mobile"] },
+  { label: "Backend & Database", color: "#339933", categories: ["Backend", "Database"] },
+  { label: "DevOps & Design", color: "#F05032", categories: ["DevOps", "Design", "Tools"] },
+  { label: "Fullstack & More", color: "#6366F1", categories: ["Fullstack", "Domain", "Computer Science"] },
+];
+
+function SkillsView() {
+  const [selectedFolder, setSelectedFolder] = useState<string | null>(null);
+  const byCategory = skillsData.reduce<Record<string, Skill[]>>((acc, skill) => {
+    (acc[skill.category] = acc[skill.category] ?? []).push(skill);
+    return acc;
+  }, {});
+
+  const folders = SKILL_FOLDER_GROUPS.map((group) => {
+    const skills = group.categories.flatMap((cat) => byCategory[cat] ?? []);
+    return { ...group, skills };
+  }).filter((f) => f.skills.length > 0);
+
+  const colorToGradient = (hex: string) => {
+    const m = /^#?([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})$/.exec(hex);
+    if (!m) return `linear-gradient(135deg, ${hex}, var(--folder-back))`;
+    const d = (n: number) => Math.max(0, Math.min(255, n - 45));
+    const r = parseInt(m[1], 16);
+    const g = parseInt(m[2], 16);
+    const b = parseInt(m[3], 16);
+    const darker = `#${d(r).toString(16).padStart(2, "0")}${d(g).toString(16).padStart(2, "0")}${d(b).toString(16).padStart(2, "0")}`;
+    return `linear-gradient(135deg, ${hex}, ${darker})`;
+  };
+
+  if (selectedFolder) {
+    const folder = folders.find((f) => f.label === selectedFolder);
+    const skills = folder?.skills ?? [];
+    const folderColor = folder?.color ?? "var(--fg-dim)";
+    return (
+      <div className="portfolio-ui-container overflow-y-auto h-full p-6 md:p-8">
+        <div className="w-full max-w-5xl mx-auto">
+          <button
+            type="button"
+            onClick={() => setSelectedFolder(null)}
+            className="flex items-center gap-2 text-sm font-normal text-muted-foreground hover:text-foreground uppercase tracking-widest mb-8 transition-colors"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            Back to categories
+          </button>
+          <h2
+            className="text-xl font-semibold uppercase tracking-tight mb-6"
+            style={{ color: folderColor }}
+          >
+            {selectedFolder}
+          </h2>
+          <div className="skills-cards-grid">
+            {skills.map((skill) => (
+              <div key={skill.id} className="skill-card">
+                <div className="skill-card-icon">
+                  <SkillIcon icon={skill.icon} iconFallback={skill.iconFallback} name={skill.name} />
+                </div>
+                <span className="skill-card-name">{skill.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="portfolio-ui-container overflow-y-auto h-full p-6 md:p-8">
+      <div className="w-full max-w-5xl mx-auto">
+        <HyperText text="Tools, frameworks & technologies" className="title gradient-text mb-2" />
+        <p className="text-[var(--fg-dim)] text-sm mb-8 max-w-xl">Technologies I use to bring ideas to life.</p>
+        <main className="min-h-[60vh] text-foreground">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 justify-items-center">
+            {folders.slice(0, MAX_SKILL_FOLDERS).map((folder, index) => (
+              <div
+                key={folder.label}
+                className="w-full animate-in fade-in slide-in-from-bottom-8 duration-700"
+                style={{ animationDelay: `${200 + index * 100}ms` }}
+              >
+                <CategoryFolderCard
+                  title={folder.label}
+                  count={folder.skills.length}
+                  countLabel="skills"
+                  gradient={colorToGradient(folder.color)}
+                  className="w-full"
+                  onClick={() => setSelectedFolder(folder.label)}
+                  hint="Hover"
+                  previewItems={folder.skills.slice(0, 5).map((s) => ({
+                    icon: s.icon,
+                    iconFallback: s.iconFallback,
+                    name: s.name,
+                  }))}
+                />
+              </div>
+            ))}
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}
+
+const CONTACT_EMAIL = "madhankumar4195@gmail.com";
+
+function ContactView() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subject = `Portfolio contact from ${name || "Someone"}`;
+    const body = [
+      `Name: ${name || "(not provided)"}`,
+      `Email: ${email || "(not provided)"}`,
+      "",
+      "Message:",
+      message || "(no message)",
+    ].join("\n");
+    const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+    setSent(true);
+    setName("");
+    setEmail("");
+    setMessage("");
+  };
+
+  return (
+    <div className="portfolio-ui-container flex flex-col items-center text-center overflow-y-auto h-full p-4 md:p-8">
+      <HyperText
+        text="Get in touch"
+        className="title gradient-text uppercase tracking-tighter mb-8"
+      />
+      <div className="description">
+        <p>If you have any questions or want to work with me, please fill out the form below. When you click Send, your email client will open with the message addressed to me.</p>
+      </div>
+      <form onSubmit={handleSubmit} className="contact-form flex flex-col gap-4 min-w-[40vw]">
+        <Input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Textarea
+          placeholder="Message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          rows={5}
+        />
+        <Button type="submit">Send</Button>
+        {sent && (
+          <p className="text-sm text-muted-foreground">Your email client should open. Complete sending from there.</p>
+        )}
+      </form>
+    </div>
+  );
+}
 
 // Types
 type FileItem = {
@@ -178,7 +390,7 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
           <div>
             <div className="flex items-center gap-4 mb-2">
               <img 
-                src="https://media.licdn.com/dms/image/v2/D560BAQGhqn-1sXzwJQ/company-logo_100_100/B56ZbxkQWKGoAQ-/0/1747809535790/healthpilotai_logo?e=1770854400&v=beta&t=3cBrHZ1Myo6nwKPzEWb8ahWivCKaouUHZWdaCKBpHdI" 
+                src="/experience/healthpilotai_logo.jpg" 
                 alt="Healthpilot.ai Logo" 
                 className="w-12 h-12 rounded-lg border border-neutral-800"
               />
@@ -198,6 +410,13 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
               and building robust backend services with Node.js and Express.js. 
               Also exploring AI tools to enhance user experience and functionality.
             </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+              <img 
+                src="/experience/ht.jpg" 
+                alt="Brocamp Project 1" 
+                className="rounded-xl border border-neutral-800 w-full aspect-video object-cover hover:border-accent transition-colors"
+              />
+            </div>
           </div>
         )
       },
@@ -207,7 +426,7 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
           <div>
             <div className="flex items-center gap-4 mb-2">
               <img 
-                src="https://media.licdn.com/dms/image/v2/D560BAQHI05yQ0_OvKg/company-logo_200_200/B56ZU3eEBwGUAI-/0/1740392383040?e=1770854400&v=beta&t=VYUzf4C0KzO8F2P7j4QKDslAI43AuauVaLIr-Cou2Ng" 
+                src="/experience/cosie.jpg" 
                 alt="COSIE Logo" 
                 className="w-12 h-12 rounded-lg border border-neutral-800 object-contain bg-white p-1"
               />
@@ -262,12 +481,17 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
               <img 
-                src="https://media.licdn.com/dms/image/v2/D4E22AQHXHLPNWSH2Vg/feedshare-shrink_800/B4EZUIgOQuHUAg-/0/1739604420152?e=1770854400&v=beta&t=B8-oyW232zJS9JvB2pEY_rV1-tsxzjYic9NuV7kPViM" 
+                src="/experience/bt-1.jpg" 
+                alt="Brocamp Project 1" 
+                className="rounded-xl border border-neutral-800 w-full aspect-video object-cover hover:border-accent transition-colors"
+              />
+               <img 
+                src="/experience/bt-1.jpg" 
                 alt="Brocamp Project 1" 
                 className="rounded-xl border border-neutral-800 w-full aspect-video object-cover hover:border-accent transition-colors"
               />
               <img 
-                src="https://media.licdn.com/dms/image/v2/D4E22AQGZq8bE8jhFaw/feedshare-shrink_800/B4EZUIgOQOHgAg-/0/1739604420995?e=1770854400&v=beta&t=4gtW_8ep51urID0F1hje_Xk5JyjWy3SzlsWKEtOBVPc" 
+                src="/experience/bt-2.jpg" 
                 alt="Brocamp Project 2" 
                 className="rounded-xl border border-neutral-800 w-full aspect-video object-cover hover:border-accent transition-colors"
               />
@@ -376,45 +600,7 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
   }
 
   if (file.name === 'skills.tsx') {
-    const skillItems: { name: string; icon: string }[] = [
-      { name: "React", icon: "https://cdn.simpleicons.org/react/61DAFB" },
-      { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs/ffffff" },
-      { name: "TypeScript", icon: "https://cdn.simpleicons.org/typescript/3178C6" },
-      { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs/339933" },
-      { name: "MongoDB", icon: "https://cdn.simpleicons.org/mongodb/47A248" },
-      { name: "GitHub", icon: "https://cdn.simpleicons.org/github/ffffff" },
-      { name: "Linux", icon: "https://cdn.simpleicons.org/linux/FCC624" },
-      { name: "Cursor", icon: "https://cdn.simpleicons.org/cursor/000000" },
-      { name: "Figma", icon: "https://cdn.simpleicons.org/figma/F24E1E" },
-      { name: "Neon", icon: "https://cdn.simpleicons.org/neon/00E599" },
-      { name: "Python", icon: "https://cdn.simpleicons.org/python/3776AB" },
-      { name: "Bun", icon: "https://cdn.simpleicons.org/bun/FAF0E6" },
-      { name: "Expo", icon: "https://cdn.simpleicons.org/expo/000020" },
-      { name: "AI/ML", icon: "https://cdn.simpleicons.org/openai/412991" },
-      { name: "SQL", icon: "https://cdn.simpleicons.org/postgresql/4169E1" },
-      { name: "MERN", icon: "https://cdn.simpleicons.org/react/61DAFB" },
-      { name: "MCP", icon: "https://cdn.simpleicons.org/socketdotio/010101" },
-      { name: "Healthcare Dev", icon: "https://cdn.simpleicons.org/gnuhealth/00A4D3" },
-    ];
-    return (
-      <div className="portfolio-ui-container overflow-y-auto h-full p-6 md:p-8">
-        <div className="w-full max-w-5xl mx-auto">
-         
-          <HyperText text="Tools, frameworks & technologies" className="title gradient-text mb-2" />
-          <p className="text-[var(--fg-dim)] text-sm mb-8 max-w-xl">Technologies I use to bring ideas to life.</p>
-          <div className="skills-cards-grid">
-            {skillItems.map((skill) => (
-              <div key={skill.name} className="skill-card">
-                <div className="skill-card-icon">
-                  <img src={skill.icon} alt={skill.name} width={32} height={32} />
-                </div>
-                <span className="skill-card-name">{skill.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
+    return <SkillsView />;
   }
 
   if (file.name === 'languages.json') {
@@ -522,23 +708,7 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
   }
 
   if (file.name === 'contact.tsx') {
-    return (
-        <div className="portfolio-ui-container flex flex-col items-center text-center overflow-y-auto h-full p-4 md:p-8">
-        <HyperText 
-            text="Get in touch" 
-            className=" title gradient-text uppercase tracking-tighter mb-8"
-          />
-          <div className="description">
-            <p>If you have any questions or want to work with me, please fill out the form below or contact me via email or LinkedIn.</p>
-          </div>
-          <div className="contact-form flex flex-col gap-4 min-w-[40vw] ">
-            <Input type="text" placeholder="Name" />
-            <Input type="email" placeholder="Email" />
-            <Textarea placeholder="Message" />
-            <Button type="submit">Send</Button>
-          </div>
-        </div>
-    );
+    return <ContactView />;
   }
 
   return (
@@ -563,10 +733,53 @@ export default function PortfolioIDE() {
   const [resizingPanel, setResizingPanel] = useState<'sidebar' | 'chat' | null>(null);
 
   // Composer State
-  const [selectedAgent, setSelectedAgent] = useState('Agent');
-  const [selectedModel, setSelectedModel] = useState('Gemini 3 Flash (Preview)');
+  const [selectedAgent, setSelectedAgent] = useState('Auto');
+  const [selectedModel, setSelectedModel] = useState('Llama 3.3 70B');
   const [isAgentMenuOpen, setIsAgentMenuOpen] = useState(false);
   const [isModelMenuOpen, setIsModelMenuOpen] = useState(false);
+
+  // Chat state (Groq portfolio AI)
+  type ChatMessage = { role: 'user' | 'assistant'; content: string };
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [chatInput, setChatInput] = useState('');
+  const [isChatLoading, setIsChatLoading] = useState(false);
+  const chatEndRef = React.useRef<HTMLDivElement>(null);
+
+  const scrollChatToBottom = React.useCallback(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
+  React.useEffect(() => {
+    scrollChatToBottom();
+  }, [chatMessages, scrollChatToBottom]);
+
+  const sendChatMessage = React.useCallback(async () => {
+    const text = chatInput.trim();
+    if (!text || isChatLoading) return;
+    setChatInput('');
+    setChatMessages((prev) => [...prev, { role: 'user', content: text }]);
+    setIsChatLoading(true);
+    try {
+      const nextMessages = [...chatMessages, { role: 'user' as const, content: text }];
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: nextMessages.map((m) => ({ role: m.role, content: m.content })),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to get response');
+      setChatMessages((prev) => [...prev, { role: 'assistant', content: data.content || '' }]);
+    } catch (err) {
+      setChatMessages((prev) => [
+        ...prev,
+        { role: 'assistant', content: `Sorry, something went wrong: ${err instanceof Error ? err.message : 'Unknown error'}. Make sure GROQ_API_KEY is set in your .env file.` },
+      ]);
+    } finally {
+      setIsChatLoading(false);
+    }
+  }, [chatInput, isChatLoading, chatMessages]);
 
 
   // Keyboard Shortcuts
@@ -1037,41 +1250,70 @@ export default function PortfolioIDE() {
             <span>Ask the AI about me...</span>
           </div>
 
-          <div className="chat-bubble">
-            <p style={{ color: '#fff', marginBottom: '8px' }}>Welcome to my portfolio!</p>
-            <p style={{ color: 'var(--fg-dim)' }}>I'm a passionate developer building experiences that matter. Feel free to view my experience, projects, and skills in the sidebar on the left.</p>
-          </div>
-
-          <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            <a href="https://github.com" target="_blank" className="chat-action-btn">
-              <Github size={14} /> View GitHub Profile
-            </a>
-            <a href="https://linkedin.com" target="_blank" className="chat-action-btn">
-              <Linkedin size={14} /> Connect on LinkedIn
-            </a>
-            <a href="mailto:hello@example.com" className="chat-action-btn">
-              <Mail size={14} /> Send an Email
-            </a>
+          <div className="chat-messages" style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', minHeight: 0 }}>
+            {chatMessages.length === 0 && (
+              <>
+                <div className="chat-bubble">
+                  <p style={{ color: '#fff', marginBottom: '8px' }}>Welcome to my portfolio!</p>
+                  <p style={{ color: 'var(--fg-dim)' }}>Ask me anything about my experience, projects, skills, or education. I’m powered by AI and have full context about this portfolio.</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <a href="https://github.com/S-MADHAN-KUMAR" target="_blank" rel="noopener noreferrer" className="chat-action-btn">
+                    <Github size={14} /> View GitHub Profile
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="chat-action-btn">
+                    <Linkedin size={14} /> Connect on LinkedIn
+                  </a>
+                  <a href="mailto:madhankumar4195@gmail.com" className="chat-action-btn">
+                    <Mail size={14} /> Send an Email
+                  </a>
+                </div>
+              </>
+            )}
+            {chatMessages.map((msg, i) => (
+              <div
+                key={i}
+                className="chat-bubble"
+                style={{
+                  alignSelf: msg.role === 'user' ? 'flex-end' : 'flex-start',
+                  maxWidth: '90%',
+                  backgroundColor: msg.role === 'user' ? 'var(--accent)' : 'var(--bg-sidebar)',
+                }}
+              >
+                <p style={{ color: msg.role === 'user' ? '#fff' : 'var(--fg)', whiteSpace: 'pre-wrap', margin: 0 }}>
+                  {msg.role === 'user' ? msg.content : <TypingText text={msg.content} speed={10} />}
+                </p>
+              </div>
+            ))}
+            {isChatLoading && (
+              <div className="chat-bubble" style={{ alignSelf: 'flex-start' }}>
+                <p style={{ color: 'var(--fg-dim)', margin: 0 }}>Thinking...</p>
+              </div>
+            )}
+            <div ref={chatEndRef} />
           </div>
 
           <div className="composer-footer">
             <div className="composer-box">
-              {activeFile && (
-                <div className="attachment-chip">
-                  <Plus size={10} strokeWidth={3} />
-                  <Atom size={12} className="text-accent" style={{ color: '#00d8ff' }} />
-                  <span>{activeFile.name}</span>
-                </div>
-              )}
               <textarea
                 className="chat-input"
-                placeholder="Describe what to build next"
-              ></textarea>
+                placeholder="Ask about my experience, projects, or skills..."
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendChatMessage();
+                  }
+                }}
+                disabled={isChatLoading}
+                rows={2}
+              />
               <div className="composer-controls">
                 <div className="control-group">
                   <div className="dropdown-container">
-                    <div 
-                      className="dropdown-pill" 
+                    <div
+                      className="dropdown-pill"
                       onClick={() => setIsAgentMenuOpen(!isAgentMenuOpen)}
                     >
                       <span>{selectedAgent}</span>
@@ -1079,9 +1321,9 @@ export default function PortfolioIDE() {
                     </div>
                     {isAgentMenuOpen && (
                       <div className="dropdown-menu">
-                        {['Ask', 'Plan', 'Debug'].map((opt) => (
-                          <div 
-                            key={opt} 
+                        {['Auto', 'Ask', 'Plan', 'Debug'].map((opt) => (
+                          <div
+                            key={opt}
                             className="menu-item"
                             onClick={() => {
                               setSelectedAgent(opt);
@@ -1094,10 +1336,9 @@ export default function PortfolioIDE() {
                       </div>
                     )}
                   </div>
-
                   <div className="dropdown-container">
-                    <div 
-                      className="dropdown-pill" 
+                    <div
+                      className="dropdown-pill"
                       onClick={() => setIsModelMenuOpen(!isModelMenuOpen)}
                     >
                       <span>{selectedModel}</span>
@@ -1105,17 +1346,9 @@ export default function PortfolioIDE() {
                     </div>
                     {isModelMenuOpen && (
                       <div className="dropdown-menu">
-                        {[
-                          'Claude Code 4', 
-                          'Claude 3.5 Sonnet', 
-                          'GPT-4o', 
-                          'Gemini 1.5 Pro', 
-                          'Gemini 3 Flash (Preview)',
-                          'o1-mini',
-                          'o1-preview'
-                        ].map((opt) => (
-                          <div 
-                            key={opt} 
+                        {['Llama 3.3 70B', 'Llama 3.1 8B', 'Mixtral 8x7B'].map((opt) => (
+                          <div
+                            key={opt}
                             className="menu-item"
                             onClick={() => {
                               setSelectedModel(opt);
@@ -1128,11 +1361,18 @@ export default function PortfolioIDE() {
                       </div>
                     )}
                   </div>
-                  
-            
                 </div>
                 <div className="control-group">
-                  <SendHorizontal size={14} className="action-icon" />
+                  <button
+                    type="button"
+                    onClick={sendChatMessage}
+                    disabled={!chatInput.trim() || isChatLoading}
+                    className="action-icon"
+                    style={{ background: 'none', border: 'none', cursor: chatInput.trim() && !isChatLoading ? 'pointer' : 'not-allowed', opacity: chatInput.trim() && !isChatLoading ? 1 : 0.5 }}
+                    aria-label="Send message"
+                  >
+                    <SendHorizontal size={14} />
+                  </button>
                 </div>
               </div>
             </div>

@@ -77,7 +77,8 @@ function FileItem({ node, depth, isLast, parentPath, onSelect }: FileItemProps) 
         {/* Folder/File indicator */}
         <div
           className={cn(
-            "flex items-center justify-center w-4 h-4 transition-transform duration-200 ease-out",
+            "flex items-center justify-center transition-transform duration-200 ease-out",
+            isFolder ? "w-4 h-4" : "w-5 h-5",
             isFolder && isOpen && "rotate-90",
           )}
         >
@@ -98,34 +99,23 @@ function FileItem({ node, depth, isLast, parentPath, onSelect }: FileItemProps) 
               />
             </svg>
           ) : (
-            <span className={cn("text-xs transition-opacity duration-200", fileIcon.color)}>{fileIcon.icon}</span>
+            <span className={cn("text-base transition-opacity duration-200 leading-none", fileIcon.color)} style={{ fontSize: "18px" }}>{fileIcon.icon}</span>
           )}
         </div>
 
-        {/* Icon */}
-        <div
-          className={cn(
-            "flex items-center justify-center w-5 h-5 rounded transition-all duration-200",
-            isFolder
-              ? isHovered
-                ? "text-folder-icon scale-110"
-                : "text-folder-icon/80"
-              : isHovered
-                ? cn(fileIcon.color, "scale-110")
-                : cn(fileIcon.color, "opacity-70"),
-          )}
-        >
-          {isFolder ? (
+        {/* Icon: folder only; files use the atom/type icon in the indicator above */}
+        {isFolder && (
+          <div
+            className={cn(
+              "flex items-center justify-center w-5 h-5 rounded transition-all duration-200",
+              isHovered ? "text-folder-icon scale-110" : "text-folder-icon/80",
+            )}
+          >
             <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor">
               <path d="M1.5 1C0.671573 1 0 1.67157 0 2.5V11.5C0 12.3284 0.671573 13 1.5 13H14.5C15.3284 13 16 12.3284 16 11.5V4.5C16 3.67157 15.3284 3 14.5 3H8L6.5 1H1.5Z" />
             </svg>
-          ) : (
-            <svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor" opacity="0.8">
-              <path d="M1.5 0C0.671573 0 0 0.671573 0 1.5V14.5C0 15.3284 0.671573 16 1.5 16H12.5C13.3284 16 14 15.3284 14 14.5V4.5L9.5 0H1.5Z" />
-              <path d="M9 0V4.5H14" fill="currentColor" fillOpacity="0.5" />
-            </svg>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* Name */}
         <span
