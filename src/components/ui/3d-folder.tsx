@@ -6,7 +6,7 @@ import { twMerge } from "tailwind-merge";
 // --- Utilities ---
 
 /**
- * Combines multiple class names and merges Tailwind classes correctly.
+ * Combines multiple class names and merges Tailwind classes correctly
  */
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
