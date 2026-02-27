@@ -736,7 +736,7 @@ export default function PortfolioIDE() {
   const [selectedAgent, setSelectedAgent] = useState('Agent');
   const [isAgentMenuOpen, setIsAgentMenuOpen] = useState(false);
 
-  // Chat state (OpenRouter / Gemma portfolio AI)
+  // Chat state (Ollama portfolio AI)
   type ChatMessage = { role: 'user' | 'assistant'; content: string };
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState('');
@@ -772,7 +772,7 @@ export default function PortfolioIDE() {
     } catch (err) {
       setChatMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: `Sorry, something went wrong: ${err instanceof Error ? err.message : 'Unknown error'}. Make sure OPENROUTER_API_KEY is set in your .env file.` },
+        { role: 'assistant', content: `Sorry, something went wrong: ${err instanceof Error ? err.message : 'Unknown error'}. Make sure OLLAMA_API_KEY is set in your .env file.` },
       ]);
     } finally {
       setIsChatLoading(false);

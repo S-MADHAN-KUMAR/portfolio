@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPortfolioContext } from "@/lib/portfolio-context";
 
-const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const MODEL = "google/gemma-3n-e2b-it:free";
+const OLLAMA_URL = "https://ollama.com/api/chat";
+const MODEL = process.env.OLLAMA_CHAT_MODEL || "gpt-oss:120b-cloud";
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.OPENROUTER_API_KEY 
+    const apiKey = process.env.OLLAMA_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: "OPENROUTER_API_KEY is not set. Add it to your .env file in the project root." },
+        { error: "OLLAMA_API_KEY is not set. Add it to your .env file in the project root." },
         { status: 500 }
       );
     }
@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
 
     const systemPrompt = getPortfolioContext();
 
-    // Gemma on OpenRouter doesn't support system/developer instructions; inject context into first user message
     const mapped = messages.map((m: { role: string; content: string }) => ({
       role: m.role === "user" || m.role === "assistant" ? m.role : "user",
       content: m.content,
@@ -35,25 +34,22 @@ export async function POST(req: NextRequest) {
       };
     }
 
-    const response = await fetch(OPENROUTER_URL, {
+    const response = await fetch(OLLAMA_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
-        "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3001",
-        "X-OpenRouter-Title": process.env.NEXT_PUBLIC_SITE_NAME || "Portfolio",
       },
       body: JSON.stringify({
         model: MODEL,
         messages: mapped,
-        temperature: 0.6,
-        max_tokens: 1024,
+        stream: false,
       }),
     });
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error("OpenRouter API error:", response.status, errText);
+      console.error("Ollama API error:", response.status, errText);
       return NextResponse.json(
         { error: "Failed to get response from AI", details: errText },
         { status: response.status }
@@ -61,7 +57,7 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content ?? "";
+    const content = data.message?.content ?? "";
     return NextResponse.json({ content });
   } catch (e) {
     console.error("Chat API error:", e);
