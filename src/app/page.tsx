@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Files,
   Search,
@@ -59,6 +59,31 @@ import { Textarea } from '@/components/ui/textarea';
 import ProjectUI, { PROJECT_CATEGORIES, CategoryFolderCard, type Project } from '@/components/ui/3d-folder';
 import { ExternalLink, MousePointer2 } from 'lucide-react';
 import { skillsData, skillCategories, type Skill } from '@/data/skills';
+import MobilePortfolio from '@/components/ui/mobile-portfolio';
+
+// ─── Responsive Hook ────────────────────────────────────────────────────
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(true);
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isDesktop;
+}
+
+// ─── Responsive Wrapper (exported as default at bottom) ──────────────────
+function ResponsivePortfolio() {
+  const isDesktop = useIsDesktop();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  // Avoid hydration mismatch - render nothing until mounted
+  if (!mounted) return <div style={{ background: '#0a0a0a', width: '100vw', height: '100vh' }} />;
+
+  return isDesktop ? <PortfolioIDE /> : <MobilePortfolio />;
+}
 
 function TypingText({ text, speed = 12, className = "" }: { text: string; speed?: number; className?: string }) {
   const [visibleLength, setVisibleLength] = useState(0);
@@ -297,22 +322,22 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div >
-            
-            <HyperText 
-            text={project.title} 
-            className="title gradient-text uppercase tracking-tighter mb-8"
-          />
+
+            <HyperText
+              text={project.title}
+              className="title gradient-text uppercase tracking-tighter mb-8"
+            />
             <p className="text-accent font-normal uppercase tracking-widest text-xs opacity-80">
               {project.date}
             </p>
           </div>
-          
+
           <div className="flex items-center gap-4">
             {project.github && (
-              <a 
-                href={project.github} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-lg text-sm font-normal text-white hover:bg-neutral-800 transition-colors"
               >
                 <Github size={16} />
@@ -320,10 +345,10 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
               </a>
             )}
             {project.webapp && (
-              <a 
-                href={project.webapp} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href={project.webapp}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg text-black  "
               >
                 <ExternalLink size={16} />
@@ -335,9 +360,9 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
 
         {/* Hero Image */}
         <div className="relative aspect-video rounded-2xl overflow-hidden border border-neutral-800 group shadow-2xl">
-          <img 
-            src={project.image} 
-            alt={project.title} 
+          <img
+            src={project.image}
+            alt={project.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent opacity-60" />
@@ -353,7 +378,7 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
               </p>
             </div>
           </div>
-          
+
           <div className="space-y-6">
             <div className="space-y-2">
               <h3 className="text-sm font-normal text-neutral-400 uppercase tracking-widest border-b border-neutral-800 pb-2">Technologies</h3>
@@ -389,9 +414,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
         content: (
           <div>
             <div className="flex items-center gap-4 mb-2">
-              <img 
-                src="/experience/healthpilotai_logo.jpg" 
-                alt="Healthpilot.ai Logo" 
+              <img
+                src="/experience/healthpilotai_logo.jpg"
+                alt="Healthpilot.ai Logo"
                 className="w-12 h-12 rounded-lg border border-neutral-800"
               />
               <div>
@@ -405,15 +430,15 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
               <span className="italic opacity-70">Chennai, India</span>
             </div>
             <p className="text-neutral-300 leading-relaxed mb-4 text-sm md:text-base">
-              Currently working on various web development projects using the MERN stack and Next.js. 
-              Designing dynamic frontend interfaces with React.js, Framer Motion, and TypeScript, 
-              and building robust backend services with Node.js and Express.js. 
+              Currently working on various web development projects using the MERN stack and Next.js.
+              Designing dynamic frontend interfaces with React.js, Framer Motion, and TypeScript,
+              and building robust backend services with Node.js and Express.js.
               Also exploring AI tools to enhance user experience and functionality.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              <img 
-                src="/experience/ht.jpg" 
-                alt="Brocamp Project 1" 
+              <img
+                src="/experience/ht.jpg"
+                alt="Brocamp Project 1"
                 className="rounded-xl border border-neutral-800 w-full aspect-video object-cover hover:border-accent transition-colors"
               />
             </div>
@@ -425,9 +450,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
         content: (
           <div>
             <div className="flex items-center gap-4 mb-2">
-              <img 
-                src="/experience/cosie.jpg" 
-                alt="COSIE Logo" 
+              <img
+                src="/experience/cosie.jpg"
+                alt="COSIE Logo"
                 className="w-12 h-12 rounded-lg border border-neutral-800 object-contain bg-white p-1"
               />
               <div>
@@ -441,9 +466,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
               <span className="italic opacity-70">Remote, India</span>
             </div>
             <p className="text-neutral-300 leading-relaxed mb-4 text-sm md:text-base">
-              Currently working on various web development projects using the MERN stack and Next.js. 
-              Designing dynamic frontend interfaces with React.js, Framer Motion, and TypeScript, 
-              and building robust backend services with Node.js and Express.js. 
+              Currently working on various web development projects using the MERN stack and Next.js.
+              Designing dynamic frontend interfaces with React.js, Framer Motion, and TypeScript,
+              and building robust backend services with Node.js and Express.js.
               Also exploring AI tools to enhance user experience and functionality.
             </p>
           </div>
@@ -454,9 +479,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
         content: (
           <div>
             <div className="flex items-center gap-4 mb-2">
-              <img 
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBLaP96CpB2kIP4A3Wh6_AsSI71VgQ9EbuDw&s" 
-                alt="Brocamp Logo" 
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBLaP96CpB2kIP4A3Wh6_AsSI71VgQ9EbuDw&s"
+                alt="Brocamp Logo"
                 className="w-12 h-12 rounded-lg border border-neutral-800 object-contain bg-white p-1"
               />
               <div>
@@ -472,7 +497,7 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
               <span className="italic opacity-70">Puducherry, India</span>
             </div>
             <p className="text-neutral-300 leading-relaxed mb-4 text-sm md:text-base">
-              Worked on various initiatives involving full-stack development. 
+              Worked on various initiatives involving full-stack development.
               Specialized in building end-to-code solutions using MongoDB, Express, React, and Node.js.
               Contributed to modern UI components and backend architectural improvements.
             </p>
@@ -480,19 +505,19 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
               <span className="opacity-70">Puducherry, India</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              <img 
-                src="/experience/bt-1.jpg" 
-                alt="Brocamp Project 1" 
+              <img
+                src="/experience/bt-1.jpg"
+                alt="Brocamp Project 1"
                 className="rounded-xl border border-neutral-800 w-full aspect-video object-cover hover:border-accent transition-colors"
               />
-               <img 
-                src="/experience/bt-1.jpg" 
-                alt="Brocamp Project 1" 
+              <img
+                src="/experience/bt-1.jpg"
+                alt="Brocamp Project 1"
                 className="rounded-xl border border-neutral-800 w-full aspect-video object-cover hover:border-accent transition-colors"
               />
-              <img 
-                src="/experience/bt-2.jpg" 
-                alt="Brocamp Project 2" 
+              <img
+                src="/experience/bt-2.jpg"
+                alt="Brocamp Project 2"
                 className="rounded-xl border border-neutral-800 w-full aspect-video object-cover hover:border-accent transition-colors"
               />
             </div>
@@ -514,11 +539,11 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
         <div className="hero-section">
           <h1 className="title gradient-text uppercase tracking-tighter">B.S. Computer Science</h1>
           <p className="subtitle uppercase tracking-tight">College • 1 Year Dropout</p>
-          
+
           <div className="edu-content mt-8">
             <div className="badge inline-block mb-4">ACADEMIC JOURNEY</div>
             <p className="text-neutral-300 leading-relaxed">
-              Pursued a Bachelor of Science in Computer Science, completing the first year. 
+              Pursued a Bachelor of Science in Computer Science, completing the first year.
               Transitioned to self-taught and practical development following the first year of studies.
             </p>
           </div>
@@ -532,12 +557,12 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-    
-          <HyperText 
-            text="Who Am I?" 
+
+          <HyperText
+            text="Who Am I?"
             className="title gradient-text uppercase tracking-tighter mb-8"
           />
-          
+
           <div>
             <div className="space-y-6">
               <p className="text-neutral-200 leading-relaxed text-lg font-light">
@@ -567,12 +592,12 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
           <div className="edu-content mt-8">
             <div className="badge inline-block mb-4">ACADEMIC FOCUS</div>
             <p className="text-neutral-300 leading-relaxed">
-              Specialized in Commerce and Auditing during higher secondary education, 
+              Specialized in Commerce and Auditing during higher secondary education,
               building a strong foundation in financial principles and analytical thinking.
             </p>
 
             <p className="text-neutral-300 leading-relaxed text-lg mt-4"><span className="text-blue-500 font-bold italic">79% </span>Perentage in Commerce and Auditing</p>
-          
+
           </div>
         </div>
       </div>
@@ -585,11 +610,11 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
         <div className="hero-section">
           <h1 className="title gradient-text uppercase tracking-tighter">Government High School</h1>
           <p className="subtitle uppercase tracking-tight">Gandhi Nager • 2019 - 2020</p>
-        
+
           <div className="edu-content mt-8">
             <div className="badge inline-block mb-4">ACHIEVEMENTS</div>
             <p className="text-neutral-300 leading-relaxed">
-              Completed general secondary education with a focus on core academic subjects 
+              Completed general secondary education with a focus on core academic subjects
               and foundational learning at Government High School, Gandhi Nager.
             </p>
           </div>
@@ -636,9 +661,9 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-          <HyperText 
-            text="portfolio guide" 
-             className="title gradient-text uppercase tracking-tighter mb-8"
+          <HyperText
+            text="portfolio guide"
+            className="title gradient-text uppercase tracking-tighter mb-8"
           />
           <div className="description">
             <p>Welcome to my interactive portfolio. This project is built to demonstrate my skills in: </p>
@@ -675,8 +700,8 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return (
       <div className="portfolio-ui-container">
         <div className="hero-section">
-          <HyperText 
-            text="Project Config" 
+          <HyperText
+            text="Project Config"
             className="title gradient-text uppercase tracking-tighter mb-8"
           />
           <div className="skills-grid">
@@ -722,7 +747,7 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
   );
 };
 
-export default function PortfolioIDE() {
+function PortfolioIDE() {
   const [openFiles, setOpenFiles] = useState<FileItem[]>([]);
   const [activeFile, setActiveFile] = useState<FileItem | null>(null);
   const [showUI, setShowUI] = useState(true);
@@ -1049,10 +1074,10 @@ export default function PortfolioIDE() {
   const handleProjectSelect = (project: Project) => {
     // Find the file in portfolioData that matches this project
     let projectFile: FileItem | undefined;
-    
+
     const projectFolder = portfolioData.SRC.find(f => f.name === 'PROJECTS') as FolderItem;
     if (projectFolder) {
-      projectFile = projectFolder.children.find(f => 
+      projectFile = projectFolder.children.find(f =>
         f.type === 'file' && f.metadata && f.metadata.id === project.id
       ) as FileItem;
     }
@@ -1129,9 +1154,9 @@ export default function PortfolioIDE() {
         <div className="flex flex-col gap-4 mt-2
         ">
           <Files size={24} color={isSidebarVisible ? "#fff" : "var(--fg-dim)"} onClick={() => setIsSidebarVisible(!isSidebarVisible)} style={{ cursor: 'pointer' }} className='cursor-pointer ' />
-        <Search size={24} color="var(--fg-dim)"  className='cursor-pointer'/>
-        <GitBranch size={24} color="var(--fg-dim)"  className='cursor-pointer'/>
-        <Boxes size={24} color="var(--fg-dim)"  className='cursor-pointer'/>
+          <Search size={24} color="var(--fg-dim)" className='cursor-pointer' />
+          <GitBranch size={24} color="var(--fg-dim)" className='cursor-pointer' />
+          <Boxes size={24} color="var(--fg-dim)" className='cursor-pointer' />
         </div>
         <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: '20px', paddingBottom: '20px' }}>
           <User size={24} color="var(--fg-dim)" className='cursor-pointer' />
@@ -1207,22 +1232,22 @@ export default function PortfolioIDE() {
             </div>
           )
         ) : (
- <TubesBackground>
-        <div className="flex flex-col items-center justify-center w-full h-full gap-6 text-center px-4">
-          <div className="space-y-2 pointer-events-auto cursor-default">
-             <img src="/logo.png" className='w-20 h-20 mx-auto' alt="" />
-                 <h1 className="gradient-text">Portfolio IDE</h1>
-            <p>Select a file from the sidebar to see my work</p>
-          </div>
+          <TubesBackground>
+            <div className="flex flex-col items-center justify-center w-full h-full gap-6 text-center px-4">
+              <div className="space-y-2 pointer-events-auto cursor-default">
+                <img src="/logo.png" className='w-20 h-20 mx-auto' alt="" />
+                <h1 className="gradient-text">Portfolio IDE</h1>
+                <p>Select a file from the sidebar to see my work</p>
+              </div>
 
-          <div className="absolute bottom-8 flex flex-col items-center gap-2 text-white/50 animate-pulse pointer-events-none">
-               <div className="shortcuts-grid">
-              <div className="shortcut"><span>Toggle Sidebar</span> <kbd>Ctrl</kbd><kbd>B</kbd></div>
-              <div className="shortcut"><span>Toggle Chat</span> <kbd>Ctrl</kbd><kbd>I</kbd></div>
+              <div className="absolute bottom-8 flex flex-col items-center gap-2 text-white/50 animate-pulse pointer-events-none">
+                <div className="shortcuts-grid">
+                  <div className="shortcut"><span>Toggle Sidebar</span> <kbd>Ctrl</kbd><kbd>B</kbd></div>
+                  <div className="shortcut"><span>Toggle Chat</span> <kbd>Ctrl</kbd><kbd>I</kbd></div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </TubesBackground>
+          </TubesBackground>
         )}
       </main>
 
@@ -1238,7 +1263,7 @@ export default function PortfolioIDE() {
         <div className="tabs-container" style={{ justifyContent: 'space-between', paddingLeft: '12px', paddingRight: '8px' }}>
           <div className="tab active" style={{ minWidth: 'auto', border: 'none' }}>Composer</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-           
+
             <X size={14} onClick={() => setIsChatVisible(false)} style={{ cursor: 'pointer', opacity: 0.6 }} />
           </div>
         </div>
@@ -1384,4 +1409,4 @@ export default function PortfolioIDE() {
   );
 }
 
-
+export default ResponsivePortfolio;
