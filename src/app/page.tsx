@@ -736,6 +736,36 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
     return <ContactView />;
   }
 
+  if (file.name === 'MadhanKumar_S_Resume.pdf') {
+    return (
+      <div className="portfolio-ui-container overflow-y-auto h-full p-6 md:p-8">
+        <div className="max-w-2xl mx-auto space-y-8">
+          <div className="hero-section">
+            <HyperText text="Resume" className="title gradient-text uppercase tracking-tighter mb-2" />
+            <p className="text-[var(--fg-dim)] text-sm mb-6">
+              Madhan Kumar S — Web Developer. Download my resume to view experience, skills, and education.
+            </p>
+            <a
+              href="/resume/MadhanKumar_S_Resume.pdf"
+              download="MadhanKumar_S_Resume.pdf"
+              className="inline-flex items-center gap-2 px-5 py-3 bg-[#1a1a1a] hover:bg-[#1a1a1a] text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              <FileText size={20} />
+              Download Resume (PDF)
+            </a>
+          </div>
+          <div className="rounded-xl border border-[var(--border-custom)] bg-[var(--hover)]/20 overflow-hidden">
+            <iframe
+              src="/resume/MadhanKumar_S_Resume.pdf#view=FitH"
+              title="Resume preview"
+              className="w-full h-[70vh] min-h-[500px]"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="code-view">
       {file.content.split('\n').map((line, i) => (
@@ -1015,6 +1045,19 @@ function PortfolioIDE() {
             content: `export const Contact = () => { /* Contact Form */ };`
           }
         ]
+      },
+      {
+        name: 'RESUME',
+        type: 'folder',
+        children: [
+          {
+            name: 'MadhanKumar_S_Resume.pdf',
+            type: 'file',
+            language: 'pdf',
+            icon: <Atom size={14} color="#00d8ff" />,
+            content: `%PDF-1.4\n% Resume – Madhan Kumar S`
+          }
+        ]
       }
     ],
     CONFIG: [
@@ -1238,6 +1281,14 @@ function PortfolioIDE() {
                 <img src="/logo.png" className='w-20 h-20 mx-auto' alt="" />
                 <h1 className="gradient-text">Portfolio IDE</h1>
                 <p>Select a file from the sidebar to see my work</p>
+                <a
+                  href="/resume/MadhanKumar_S_Resume.pdf"
+                  download="MadhanKumar_S_Resume.pdf"
+                  className="inline-flex items-center gap-2 mt-4 px-4 py-2.5 bg-black border rounded-md text-sm font-medium transition-colors"
+                >
+                  <FileText size={18} />
+                  Download Resume (PDF)
+                </a>
               </div>
 
               <div className="absolute bottom-8 flex flex-col items-center gap-2 text-white/50 animate-pulse pointer-events-none">
@@ -1303,9 +1354,13 @@ function PortfolioIDE() {
                   backgroundColor: msg.role === 'user' ? 'var(--accent)' : 'var(--bg-sidebar)',
                 }}
               >
-                <p style={{ color: msg.role === 'user' ? '#fff' : 'var(--fg)', whiteSpace: 'pre-wrap', margin: 0 }}>
-                  {msg.role === 'user' ? msg.content : <TypingText text={msg.content} speed={10} />}
+                {msg.role === 'user' ? (
+                  <p style={{ color: '#fff', whiteSpace: 'pre-wrap', margin: 0 }}>{msg.content}</p>
+                ) : (
+                  <p style={{ color: 'var(--fg)', whiteSpace: 'pre-wrap', margin: 0 }}>
+                  <TypingText text={msg.content} speed={18} className="chat-assistant-typing" />
                 </p>
+                )}
               </div>
             ))}
             {isChatLoading && (

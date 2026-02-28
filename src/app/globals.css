@@ -724,6 +724,25 @@ body {
   border: 1px solid var(--border-custom);
 }
 
+/* Claude-style block cursor for chat typing animation */
+.chat-bubble .typing-cursor {
+  display: inline-block;
+  width: 2px;
+  min-width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  font-size: 0;
+  line-height: 0;
+  color: transparent;
+  background: var(--fg);
+  animation: chat-cursor-blink 0.7s step-end infinite;
+}
+
+@keyframes chat-cursor-blink {
+  50% { opacity: 0; }
+}
+
 .chat-action-btn {
   display: flex;
   align-items: center;

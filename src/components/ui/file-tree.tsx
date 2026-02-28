@@ -33,6 +33,7 @@ const getFileIcon = (extension?: string) => {
     css: { color: "text-[oklch(0.65_0.2_280)]", icon: "◈" },
     json: { color: "text-[oklch(0.75_0.15_85)]", icon: "{}" },
     md: { color: "text-muted-foreground", icon: "◊" },
+    pdf: { color: "text-[oklch(0.65_0.18_220)]", icon: "⚛" },
     svg: { color: "text-[oklch(0.7_0.15_160)]", icon: "◐" },
     png: { color: "text-[oklch(0.65_0.12_160)]", icon: "◑" },
     default: { color: "text-muted-foreground", icon: "◇" },
