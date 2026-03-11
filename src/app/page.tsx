@@ -980,7 +980,7 @@ function PortfolioIDE() {
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `// Main Project: GymRatzz E-commerce\nexport const GymRatzz = () => {};`,
-            metadata: PROJECT_CATEGORIES[0].projects[1]
+            metadata: PROJECT_CATEGORIES[0].projects[0]
           },
           {
             name: 'E-ZONE.tsx',
