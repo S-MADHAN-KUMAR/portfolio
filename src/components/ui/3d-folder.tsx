@@ -705,7 +705,24 @@ export const PROJECT_CATEGORIES = [
         ],
         category: "web app",
         github: "https://github.com/S-MADHAN-KUMAR/gymratzz",
-        webapp: "https://gymratzz.shop/"
+        webapp: "https://gymratz.onrender.com"
+      },
+      {
+        id: "5",
+        title: "SkillSync - AI Job Portal",
+        date: "2025",
+        description: "SkillSync is an AI-powered job portal application that connects job seekers with employers using intelligent matching and modern web technologies.",
+        image: "https://media.licdn.com/dms/image/v2/D4E22AQFCCEFZga5q9Q/feedshare-shrink_2048_1536/B4EZdNA6EcHQAo-/0/1749343775803?e=1775088000&v=beta&t=agryHYmar7PYe_Z8gbqA_xcuet1kemdr-8-UTzuh5uQ",
+        tags: [
+          { name: "TypeScript", image: "https://img.icons8.com/color/48/typescript.png" },
+          { name: "React Js", image: "https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" },
+          { name: "Node JS", image: "https://img.icons8.com/color/48/nodejs.png" },
+          { name: "Mongo DB", image: "https://img.icons8.com/color/48/mongodb.png" },
+          { name: "Tailwind css", image: "https://img.icons8.com/fluency/96/tailwind_css.png" }
+        ],
+        category: "web app",
+        github: "https://github.com/S-MADHAN-KUMAR/SkillSync-Client.git",
+        webapp: "https://skillsync-x2xb.onrender.com/"
       }
     ] as Project[]
   },

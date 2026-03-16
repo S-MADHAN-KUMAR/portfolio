@@ -31,7 +31,8 @@ export function getPortfolioContext(): string {
 ${skillsList}
 
 ## Projects (high level)
-- **GymRatzz E-commerce** (Main): MERN stack e-commerce; JavaScript, Tailwind, React, Redux, Node.js, MongoDB. GitHub: github.com/S-MADHAN-KUMAR/gymratzz | Live: gymratzz.shop
+- **GymRatzz E-commerce** (Main): MERN stack e-commerce; JavaScript, Tailwind, React, Redux, Node.js, MongoDB. GitHub: github.com/S-MADHAN-KUMAR/gymratzz | Live: gymratz.onrender.com
+- **SkillSync - AI Job Portal** (Main): AI-powered job portal application; TypeScript, React, Tailwind, Node.js, MongoDB. GitHub: github.com/S-MADHAN-KUMAR/SkillSync-Client | Live: skillsync-x2xb.onrender.com
 - **E-ZONE**: E-commerce with add-to-cart, login (Supabase), Tailwind, React, Redux. GitHub: github.com/MADHAN-KUMAR-161/EZONE | Live: ezone-shop.netlify.app
 - **E-Portfolio**: Colorful portfolio with Framer Motion, Email.js, Tailwind, React. GitHub: github.com/MADHAN-KUMAR-161/Portfolio | Live: e-portfolioo.netlify.app
 - **Mini TypeScript CRUD App**: React + TypeScript CRUD. GitHub: github.com/S-MADHAN-KUMAR/CRUD-APP-TYPESCRIPT | Live: crud-app-typescript.onrender.com
