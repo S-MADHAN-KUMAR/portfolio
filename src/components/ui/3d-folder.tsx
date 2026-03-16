@@ -710,7 +710,7 @@ export const PROJECT_CATEGORIES = [
       {
         id: "5",
         title: "SkillSync - AI Job Portal",
-        date: "2025",
+        date: "feb 2025/1 -  mar/1",
         description: "SkillSync is an AI-powered job portal application that connects job seekers with employers using intelligent matching and modern web technologies.",
         image: "https://media.licdn.com/dms/image/v2/D4E22AQFCCEFZga5q9Q/feedshare-shrink_2048_1536/B4EZdNA6EcHQAo-/0/1749343775803?e=1775088000&v=beta&t=agryHYmar7PYe_Z8gbqA_xcuet1kemdr-8-UTzuh5uQ",
         tags: [

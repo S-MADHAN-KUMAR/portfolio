@@ -332,7 +332,9 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
             </p>
           </div>
 
-          <div className="flex items-center gap-4">
+         
+        </div>
+ <div className="flex items-center gap-4">
             {project.github && (
               <a
                 href={project.github}
@@ -356,8 +358,6 @@ const ProjectDetailUI = ({ project }: { project: Project }) => {
               </a>
             )}
           </div>
-        </div>
-
         {/* Hero Image */}
         <div className="relative aspect-video rounded-2xl overflow-hidden border border-neutral-800 group shadow-2xl">
           <img
@@ -968,14 +968,7 @@ function PortfolioIDE() {
             content: `// Project Gallery Overview\nexport const Gallery = () => {};`
           },
           {
-            name: 'SkillSync.tsx',
-            type: 'file',
-            language: 'typescript',
-            icon: <Atom size={14} color="#00d8ff" />,
-            content: `// Main Project: SkillSync AI Job portal application\nexport const SkillSync = () => {};`,
-            metadata: PROJECT_CATEGORIES[0].projects[0]
-          },{
-          name: 'GymRatzz.tsx',
+            name: 'GymRatzz.tsx',
             type: 'file',
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
