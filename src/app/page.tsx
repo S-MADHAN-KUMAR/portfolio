@@ -968,7 +968,14 @@ function PortfolioIDE() {
             content: `// Project Gallery Overview\nexport const Gallery = () => {};`
           },
           {
-            name: 'GymRatzz.tsx',
+            name: 'SkillSync.tsx',
+            type: 'file',
+            language: 'typescript',
+            icon: <Atom size={14} color="#00d8ff" />,
+            content: `// Main Project: SkillSync AI Job portal application\nexport const SkillSync = () => {};`,
+            metadata: PROJECT_CATEGORIES[0].projects[0]
+          },{
+          name: 'GymRatzz.tsx',
             type: 'file',
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
