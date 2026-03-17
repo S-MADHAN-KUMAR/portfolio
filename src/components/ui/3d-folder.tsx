@@ -705,7 +705,7 @@ export const PROJECT_CATEGORIES = [
         ],
         category: "web app",
         github: "https://github.com/S-MADHAN-KUMAR/gymratzz",
-        webapp: "https://gymratz.onrender.com"
+        webapp: "https://gymratz-client.vercel.app"
       },
       {
         id: "5",
