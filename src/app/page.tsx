@@ -968,12 +968,20 @@ function PortfolioIDE() {
             content: `// Project Gallery Overview\nexport const Gallery = () => {};`
           },
           {
+            name: 'CodeSighter.tsx',
+            type: 'file',
+            language: 'typescript',
+            icon: <Atom size={14} color="#00d8ff" />,
+            content: `// AI Project: CodeSighter\nexport const CodeSighter = () => {};`,
+            metadata: PROJECT_CATEGORIES[0].projects[0]
+          },
+          {
             name: 'GymRatzz.tsx',
             type: 'file',
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `// Main Project: GymRatzz E-commerce\nexport const GymRatzz = () => {};`,
-            metadata: PROJECT_CATEGORIES[0].projects[0]
+            metadata: PROJECT_CATEGORIES[1].projects[0]
           },
           {
             name: 'SkillSync.tsx',
@@ -981,7 +989,7 @@ function PortfolioIDE() {
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `// Main Project: SkillSync - AI Job Portal\nexport const SkillSync = () => {};`,
-            metadata: PROJECT_CATEGORIES[0].projects[1]
+            metadata: PROJECT_CATEGORIES[1].projects[1]
           },
           {
             name: 'E-ZONE.tsx',
@@ -989,7 +997,7 @@ function PortfolioIDE() {
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `// Frontend Project: E-ZONE\nexport const EZone = () => {};`,
-            metadata: PROJECT_CATEGORIES[1].projects[0]
+            metadata: PROJECT_CATEGORIES[2].projects[0]
           },
           {
             name: 'Portfolio.tsx',
@@ -997,7 +1005,31 @@ function PortfolioIDE() {
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `// This very Portfolio\nexport const Portfolio = () => {};`,
-            metadata: PROJECT_CATEGORIES[1].projects[1]
+            metadata: PROJECT_CATEGORIES[2].projects[1]
+          },
+          {
+            name: 'Spotify-Clone.tsx',
+            type: 'file',
+            language: 'typescript',
+            icon: <Atom size={14} color="#00d8ff" />,
+            content: `// Frontend Project: Spotify Clone\nexport const SpotifyClone = () => {};`,
+            metadata: PROJECT_CATEGORIES[2].projects[2]
+          },
+          {
+            name: 'Netflix-Clone.tsx',
+            type: 'file',
+            language: 'typescript',
+            icon: <Atom size={14} color="#00d8ff" />,
+            content: `// Frontend Project: Netflix Clone\nexport const NetflixClone = () => {};`,
+            metadata: PROJECT_CATEGORIES[2].projects[3]
+          },
+          {
+            name: 'Starbugs-Clone.tsx',
+            type: 'file',
+            language: 'typescript',
+            icon: <Atom size={14} color="#00d8ff" />,
+            content: `// Frontend Project: Starbugs Clone\nexport const StarbugsClone = () => {};`,
+            metadata: PROJECT_CATEGORIES[2].projects[4]
           },
           {
             name: 'CRUD-App.tsx',
@@ -1005,7 +1037,7 @@ function PortfolioIDE() {
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `// Mini Project: CRUD-App\nexport const CRUDApp = () => {};`,
-            metadata: PROJECT_CATEGORIES[2].projects[0]
+            metadata: PROJECT_CATEGORIES[3].projects[0]
           },
           {
             name: 'TODO.tsx',
@@ -1013,7 +1045,7 @@ function PortfolioIDE() {
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `// Mini Project: TODO\nexport const TODO = () => {};`,
-            metadata: PROJECT_CATEGORIES[2].projects[1]
+            metadata: PROJECT_CATEGORIES[3].projects[1]
           },
           {
             name: 'UserManagement.tsx',
@@ -1021,7 +1053,7 @@ function PortfolioIDE() {
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `// Mini Project: User Management\nexport const UserManagement = () => {};`,
-            metadata: PROJECT_CATEGORIES[2].projects[2]
+            metadata: PROJECT_CATEGORIES[3].projects[2]
           }
         ]
       },

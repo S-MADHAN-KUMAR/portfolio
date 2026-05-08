@@ -686,6 +686,28 @@ const AnimatedFolder: React.FC<AnimatedFolderProps> = ({ title, projects, classN
 
 export const PROJECT_CATEGORIES = [
   {
+    title: "AI Projects",
+    gradient: "linear-gradient(135deg, #667eea, #764ba2)",
+    projects: [
+      {
+        id: "codesighter",
+        title: "CodeSighter",
+        date: "2025",
+        description: "An AI-powered code analysis and visualization tool that helps developers understand and optimize their codebase.",
+        image: "/projects/codesighter.png",
+        tags: [
+          { name: "AI", image: "https://img.icons8.com/color/48/artificial-intelligence.png" },
+          { name: "React", image: "https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" },
+          { name: "TypeScript", image: "https://img.icons8.com/color/48/typescript.png" },
+          { name: "Node.js", image: "https://img.icons8.com/color/48/nodejs.png" }
+        ],
+        category: "AI Tool",
+        github: "https://github.com/S-MADHAN-KUMAR/codesighter.git",
+        webapp: "https://codesighter.vercel.app"
+      }
+    ] as Project[]
+  },
+  {
     title: "Main Projects",
     gradient: "linear-gradient(135deg, #e73827, #f85032)",
     projects: [
@@ -712,7 +734,7 @@ export const PROJECT_CATEGORIES = [
         title: "SkillSync - AI Job Portal",
         date: "feb 2025/1 -  mar/1",
         description: "SkillSync is an AI-powered job portal application that connects job seekers with employers using intelligent matching and modern web technologies.",
-        image: "https://media.licdn.com/dms/image/v2/D4E22AQFCCEFZga5q9Q/feedshare-shrink_2048_1536/B4EZdNA6EcHQAo-/0/1749343775803?e=1775088000&v=beta&t=agryHYmar7PYe_Z8gbqA_xcuet1kemdr-8-UTzuh5uQ",
+        image: "/projects/skillsync.jpg",
         tags: [
           { name: "TypeScript", image: "https://img.icons8.com/color/48/typescript.png" },
           { name: "React Js", image: "https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" },
@@ -735,7 +757,7 @@ export const PROJECT_CATEGORIES = [
         title: "E-ZONE",
         date: " May 2024/17 - Jun 2024/1",
         description: "I've just created my first project, ezone-shop. It's a basic e-commerce platform with some exciting features. The project includes an add-to-cart function, user login authentication, and persistent login management using Supabase. I'm thrilled about this initial step into web development!",
-        image: "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&q=80&w=1200",
+        image: "/projects/ezone.png",
         tags: [
           { name: "Tailwind css", image: "https://img.icons8.com/fluency/96/tailwind_css.png" },
           { name: "React Js", image: "https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" },
@@ -765,6 +787,54 @@ export const PROJECT_CATEGORIES = [
         category: "web app",
         github: "https://github.com/MADHAN-KUMAR-161/Portfolio",
         webapp: "https://e-portfolioo.netlify.app/",
+      },
+      {
+        id: "spotify",
+        title: "Spotify Clone",
+        date: "2025",
+        description: "A full-featured Spotify clone with music streaming capabilities, playlist management, and modern UI design.",
+        image: "/projects/spotify.png",
+        tags: [
+          { name: "React", image: "https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" },
+          { name: "Tailwind CSS", image: "https://img.icons8.com/fluency/96/tailwind_css.png" },
+          { name: "JavaScript", image: "https://img.icons8.com/color/48/javascript--v1.png" },
+          { name: "Node.js", image: "https://img.icons8.com/color/48/nodejs.png" }
+        ],
+        category: "web app",
+        github: "https://github.com/S-MADHAN-KUMAR/Spotify-Clone.git",
+        webapp: "https://spotify-clone-3eb5.onrender.com/"
+      },
+      {
+        id: "netflix",
+        title: "Netflix Clone",
+        date: "2025",
+        description: "A Netflix clone featuring movie browsing, user authentication, and responsive design with modern streaming interface.",
+        image: "/projects/netflix.png",
+        tags: [
+          { name: "React", image: "https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" },
+          { name: "Tailwind CSS", image: "https://img.icons8.com/fluency/96/tailwind_css.png" },
+          { name: "JavaScript", image: "https://img.icons8.com/color/48/javascript--v1.png" },
+          { name: "Firebase", image: "https://img.icons8.com/color/48/firebase.png" }
+        ],
+        category: "web app",
+        github: "https://github.com/S-MADHAN-KUMAR/Netflix-Clone.git",
+        webapp: "https://netflix-clone-mocha-three-51.vercel.app/"
+      },
+      {
+        id: "starbugs",
+        title: "Starbugs Clone",
+        date: "2025",
+        description: "A Starbucks clone featuring coffee ordering, menu browsing, and modern e-commerce interface.",
+        image: "/projects/starbugs.png",
+        tags: [
+          { name: "React", image: "https://img.icons8.com/external-tal-revivo-color-tal-revivo/48/external-react-a-javascript-library-for-building-user-interfaces-logo-color-tal-revivo.png" },
+          { name: "Tailwind CSS", image: "https://img.icons8.com/fluency/96/tailwind_css.png" },
+          { name: "JavaScript", image: "https://img.icons8.com/color/48/javascript--v1.png" },
+          { name: "Node.js", image: "https://img.icons8.com/color/48/nodejs.png" }
+        ],
+        category: "web app",
+        github: "https://github.com/S-MADHAN-KUMAR/Starbugs-clone.git",
+        webapp: "https://starbugs-clone.vercel.app/"
       }
     ] as Project[]
   },
