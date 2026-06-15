@@ -704,6 +704,25 @@ export const PROJECT_CATEGORIES = [
         category: "AI Tool",
         github: "https://github.com/S-MADHAN-KUMAR/codesighter.git",
         webapp: "https://codesighter.vercel.app"
+      },
+      {
+        id: "autoqa",
+        title: "AutoQA AI Testing Agent",
+        date: "2026",
+        description: "An AI testing agent that combines Next.js, Tailwind CSS, Ollama LLM, Browserbase automation, Clerk authentication, and Neon DB to validate web experiences end to end.",
+        image: "/projects/autoQA.png",
+        tags: [
+          { name: "Next.js", image: "https://img.icons8.com/fluency-systems-filled/96/nextjs.png" },
+          { name: "Tailwind CSS", image: "https://img.icons8.com/fluency/96/tailwind_css.png" },
+          { name: "Agent", image: "https://img.icons8.com/color/48/robot-2.png" },
+          { name: "Ollama LLM", image: "https://img.icons8.com/color/48/artificial-intelligence.png" },
+          { name: "Browserbase", image: "https://img.icons8.com/color/48/web.png" },
+          { name: "Clerk Auth", image: "https://img.icons8.com/color/48/user-male-circle--v1.png" },
+          { name: "Neon DB", image: "https://img.icons8.com/color/48/database.png" }
+        ],
+        category: "AI Tool",
+        github: "https://github.com/S-MADHAN-KUMAR/autoqa-ai-testing--agent.git",
+        webapp: "https://autoqa-ai-testing-agent.vercel.app/"
       }
     ] as Project[]
   },

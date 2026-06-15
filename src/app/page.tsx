@@ -976,6 +976,14 @@ function PortfolioIDE() {
             metadata: PROJECT_CATEGORIES[0].projects[0]
           },
           {
+            name: 'AutoQA.tsx',
+            type: 'file',
+            language: 'typescript',
+            icon: <Atom size={14} color="#00d8ff" />,
+            content: `// AI Project: AutoQA AI Testing Agent\nexport const AutoQA = () => {};`,
+            metadata: PROJECT_CATEGORIES[0].projects[1]
+          },
+          {
             name: 'GymRatzz.tsx',
             type: 'file',
             language: 'typescript',
