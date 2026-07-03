@@ -4,7 +4,7 @@ import { skillsData } from "@/data/skills";
  * Plain-text portfolio context for the chat AI. Keep in sync with the actual portfolio content.
  */
 export function getPortfolioContext(): string {
-  const skillsList = skillsData.map((s) => s.name).join(", ");
+  const skillsList = skillsData.map((s) => s.name).join(", ") || "Not available";
 
   return `You are a helpful assistant for a portfolio website. Answer questions about the portfolio owner (the developer) using ONLY the following information. Be concise and friendly. If asked something not covered below, say you don't have that information and suggest they check the portfolio or contact directly.
 
@@ -14,13 +14,13 @@ export function getPortfolioContext(): string {
 - Goal: Contribute to meaningful web projects and grow into a highly skilled frontend developer; become well-rounded, capable of modern, scalable, and accessible web applications.
 
 ## Experience
-1. **Software Developer at Healthpilot.ai** (Aug 2025 - Present, Full time, Chennai, India)
+1. **Software Developer at Healthpilot.ai** (Aug 2023 - Present, Full time, Chennai, India)
    - Web development with MERN stack and Next.js; dynamic frontends with React.js, Framer Motion, TypeScript; backend with Node.js and Express.js; exploring AI tools for UX.
 
-2. **Frontend Developer at COSIE** (Aug 2025 - Present, Part time, Remote, India)
+2. **Frontend Developer at COSIE** (Aug 2023 - Present, Part time, Remote, India)
    - Same stack: MERN, Next.js, React, Framer Motion, TypeScript, Node.js, Express.js, AI tools.
 
-3. **MERN Stack Developer at Brocamp** (Jan 2025 - Aug 2025, Full time, Puducherry, India)
+3. **MERN Stack Developer at Brocamp** (Jan 2023 - Aug 2023, Full time, Puducherry, India)
    - Full-stack development; MongoDB, Express, React, Node.js; modern UI components and backend improvements.
 
 ## Education

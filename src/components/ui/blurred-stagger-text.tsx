@@ -2,7 +2,7 @@
 
 import * as React from "react"
  
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
  
 export const BlurredStagger = ({
   text = "we love hextaui.com ❤️",
@@ -45,7 +45,7 @@ export const BlurredStagger = ({
         >
           {headingText.split("").map((char, index) => (
             <motion.span
-              key={index}
+              key={`${char}-${index}`}
               variants={letterAnimation}
               transition={{ duration: 0.3 }}
             >
