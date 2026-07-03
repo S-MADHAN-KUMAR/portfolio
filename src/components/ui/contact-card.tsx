@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 
 type ContactInfoProps = React.ComponentProps<'div'> & {
+	id: string;
 	icon: LucideIcon;
 	label: string;
 	value: string;
@@ -49,8 +50,8 @@ export function ContactCard({
 						{description}
 					</p>
 					<div className="grid gap-4 md:grid md:grid-cols-2 lg:grid-cols-3">
-						{contactInfo?.map((info, index) => (
-							<ContactInfo key={index} {...info} />
+						{contactInfo?.map((info) => (
+							<ContactInfo key={info.id} {...info} />
 						))}
 					</div>
 				</div>
