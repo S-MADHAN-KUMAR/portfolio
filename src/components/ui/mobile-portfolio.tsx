@@ -8,6 +8,7 @@ import {
     Cpu,
     GraduationCap,
     Mail,
+    MessageSquare,
     Github,
     Linkedin,
     ExternalLink,
@@ -20,13 +21,14 @@ import {
     Code2,
     Menu,
     X,
+    SendHorizontal,
 } from 'lucide-react';
 import { PROJECT_CATEGORIES, type Project } from '@/components/ui/3d-folder';
 import { skillsData, type Skill } from '@/data/skills';
 import { HyperText } from '@/components/ui/hyper-text';
 
 // ─── Types ───────────────────────────────────────────────────────────────
-type MobileSection = 'home' | 'experience' | 'projects' | 'skills' | 'education' | 'contact';
+type MobileSection = 'home' | 'experience' | 'projects' | 'skills' | 'education' | 'contact' | 'chat';
 
 // ─── Skill Folder Groups (same as desktop) ───────────────────────────────
 const SKILL_FOLDER_GROUPS = [
@@ -91,7 +93,7 @@ function HomeView({ onNavigate }: { onNavigate: (s: MobileSection) => void }) {
                     <h1 className="mob-hero-name">
                         <HyperText text="S Madhan Kumar" className="mob-hero-name-text" />
                     </h1>
-                    <p className="mob-hero-role">Full Stack Developer</p>
+                    <p className="mob-hero-role">AI/ML Engineer</p>
                     <p className="mob-hero-location">
                         <MapPin size={14} />
                         <span>Chennai, India</span>
@@ -103,7 +105,7 @@ function HomeView({ onNavigate }: { onNavigate: (s: MobileSection) => void }) {
             <AnimatedSection delay={100}>
                 <div className="mob-card mob-bio-card">
                     <p>
-                        Fresh and result-oriented web developer with a strong foundation in frontend technologies and a deep interest in building responsive, user-friendly web applications.
+                        AI/ML Engineer focused on building practical AI-powered applications. Currently learning RAG, LangChain, and LangGraph, with hands-on projects in harness engineering and a full-stack development background.
                     </p>
                 </div>
             </AnimatedSection>
@@ -175,6 +177,15 @@ function HomeView({ onNavigate }: { onNavigate: (s: MobileSection) => void }) {
 function ExperienceView() {
     const experiences = [
         {
+            title: "Software Development Engineer",
+            company: "V-Accel AI Dynamics Pvt LTD",
+            logo: "/experience/VAccel-Logo.png",
+            period: "Jul 2025 - Present",
+            location: "Chennai",
+            description: "Transitioned into the SDE role, maintaining core business logic, executing database migrations, and resolving complex UI, performance, and system-level issues.",
+            image: "/experience/vaccel-work.jpeg",
+        },
+        {
             title: "Software Developer",
             company: "Healthpilot.ai",
             logo: "/experience/healthpilotai_logo.jpg",
@@ -221,7 +232,7 @@ function ExperienceView() {
                         <div className="mob-exp-meta">
                             <span><Calendar size={12} /> {exp.period}</span>
                             <span><MapPin size={12} /> {exp.location}</span>
-                            <span className="mob-exp-badge">{exp.type}</span>
+                            {exp.type && <span className="mob-exp-badge">{exp.type}</span>}
                         </div>
                         <p className="mob-exp-desc">{exp.description}</p>
                         {exp.image && (
@@ -507,6 +518,124 @@ function ContactView() {
     );
 }
 
+function ChatView() {
+    type ChatMessage = { role: 'user' | 'assistant'; content: string };
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const [input, setInput] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const chatEndRef = React.useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages, isLoading]);
+
+    const sendMessage = async (event: React.FormEvent) => {
+        event.preventDefault();
+        const text = input.trim();
+        if (!text || isLoading) return;
+
+        const nextMessages = [...messages, { role: 'user' as const, content: text }];
+        setMessages(nextMessages);
+        setInput('');
+        setIsLoading(true);
+
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ messages: nextMessages }),
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Failed to get response');
+            setMessages((current) => [...current, { role: 'assistant', content: data.content || '' }]);
+        } catch (error) {
+            setMessages((current) => [
+                ...current,
+                {
+                    role: 'assistant',
+                    content: `Sorry, something went wrong: ${error instanceof Error ? error.message : 'Unknown error'}.`,
+                },
+            ]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const suggestions = [
+        "What's your experience?",
+        "Show me your top projects",
+        "What are your skills?",
+    ];
+
+    return (
+        <div className="mob-chat-main" aria-label="Chat with the portfolio assistant">
+            {/* Header lives in the main flow — not inside a card */}
+            <div className="mob-chat-header">
+                <div className="mob-chat-avatar">
+                    <Sparkles size={16} />
+                    <span className="mob-chat-online-dot" />
+                </div>
+                <div className="mob-chat-header-text">
+                    <h2 className="mob-chat-title">AI Chat</h2>
+                    <p className="mob-chat-subtitle">Ask about my experience, projects, or skills</p>
+                </div>
+            </div>
+
+            <div className="mob-chat-transcript" aria-live="polite">
+                {messages.length === 0 && !isLoading && (
+                    <div className="mob-chat-empty">
+                        <div className="mob-chat-empty-icon">
+                            <MessageSquare size={20} />
+                        </div>
+                        <p className="mob-chat-empty-title">Hi there! How can I help you today?</p>
+                        <p className="mob-chat-empty-sub">Ask me anything about experience, projects, skills, or education.</p>
+                        <div className="mob-chat-suggestions">
+                            {suggestions.map((s) => (
+                                <button
+                                    key={s}
+                                    type="button"
+                                    className="mob-chat-suggestion"
+                                    onClick={() => setInput(s)}
+                                >
+                                    {s}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+                {messages.map((message, index) => (
+                    <div key={index} className={`mob-chat-bubble ${message.role}`}>
+                        {message.content}
+                    </div>
+                ))}
+                {isLoading && <div className="mob-chat-bubble assistant mob-chat-thinking">Thinking…</div>}
+                <div ref={chatEndRef} />
+            </div>
+
+            <form className="mob-chat-form" onSubmit={sendMessage}>
+                <textarea
+                    className="mob-chat-input"
+                    placeholder="Ask a question..."
+                    aria-label="Message the portfolio assistant"
+                    value={input}
+                    onChange={(event) => setInput(event.target.value)}
+                    onKeyDown={(event) => {
+                        if (event.key === 'Enter' && !event.shiftKey) {
+                            event.preventDefault();
+                            event.currentTarget.form?.requestSubmit();
+                        }
+                    }}
+                    rows={1}
+                    disabled={isLoading}
+                />
+                <button type="submit" aria-label="Send message" disabled={!input.trim() || isLoading}>
+                    <SendHorizontal size={18} />
+                </button>
+            </form>
+        </div>
+    );
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
 // MAIN MOBILE PORTFOLIO
 // ═══════════════════════════════════════════════════════════════════════════
@@ -519,6 +648,7 @@ export default function MobilePortfolio() {
         { icon: <FolderOpen size={20} />, label: 'Projects', section: 'projects' },
         { icon: <Cpu size={20} />, label: 'Skills', section: 'skills' },
         { icon: <GraduationCap size={20} />, label: 'Education', section: 'education' },
+        { icon: <MessageSquare size={20} />, label: 'Chat', section: 'chat' },
     ];
 
     const handleNavigate = (section: MobileSection) => {
@@ -536,6 +666,7 @@ export default function MobilePortfolio() {
             case 'skills': return <SkillsView />;
             case 'education': return <EducationView />;
             case 'contact': return <ContactView />;
+            case 'chat': return <ChatView />;
         }
     };
 

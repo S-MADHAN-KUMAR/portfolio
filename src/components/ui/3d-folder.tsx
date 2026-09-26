@@ -690,6 +690,22 @@ export const PROJECT_CATEGORIES = [
     gradient: "linear-gradient(135deg, #667eea, #764ba2)",
     projects: [
       {
+        id: "whiskers-rag",
+        title: "Whiskers - Policy PDF RAG Assistant",
+        description: "An AI agent that lets teams ask questions about multiple company policy PDFs in plain English. It chunks uploaded documents, embeds and indexes the content, retrieves relevant source passages for each question, and uses an LLM to generate clear, grounded answers. Built to make HR policies, remote-work rules, codes of conduct, and travel guidance easier to find and understand.",
+        image: "/projects/whisker.jpg",
+        tags: [
+          { name: "RAG", image: "https://img.icons8.com/color/48/artificial-intelligence.png" },
+          { name: "PDF Processing", image: "https://img.icons8.com/color/48/pdf.png" },
+          { name: "Embeddings", image: "https://img.icons8.com/color/48/artificial-intelligence.png" },
+          { name: "Vector Search", image: "https://img.icons8.com/color/48/database.png" },
+          { name: "LLM", image: "https://img.icons8.com/color/48/artificial-intelligence.png" }
+        ],
+        category: "AI Tool",
+        github: "https://github.com/S-MADHAN-KUMAR/PDF_RAG-CHAT",
+        webapp: "https://whiskers-rag.vercel.app/"
+      },
+      {
         id: "codesighter",
         title: "CodeSighter",
         date: "2025",

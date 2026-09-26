@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Dev Portfolio IDE",
-  description: "A developer portfolio built with a Cursor IDE interface.",
+  description: "Madhan Kumar S, AI/ML Engineer building practical AI-powered applications.",
 };
 
 export default function RootLayout({

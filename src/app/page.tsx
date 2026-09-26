@@ -410,6 +410,38 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
   if (file.name === 'overview.tsx') {
     const timelineData = [
       {
+        title: "Jul 2025 - Present",
+        content: (
+          <div>
+            <div className="flex items-center gap-4 mb-2">
+              <img
+                src="/experience/VAccel-Logo.png"
+                alt="V-Accel AI Dynamics logo"
+                className="w-12 h-12 rounded-lg border border-neutral-800 object-contain bg-white p-1"
+              />
+              <div>
+                <h4 className="text-xl font-normal text-white uppercase tracking-tight">Software Development Engineer</h4>
+                <span className="text-accent font-normal uppercase tracking-wide text-xs">V-Accel AI Dynamics Pvt LTD</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 mb-4 text-neutral-400 text-sm">
+              <span className="italic opacity-70">Chennai</span>
+            </div>
+            <p className="text-neutral-300 leading-relaxed mb-4 text-sm md:text-base">
+              Transitioned into the SDE role, maintaining core business logic, executing database migrations, and resolving
+              complex UI, performance, and system-level issues.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+              <img
+                src="/experience/vaccel-work.jpeg"
+                alt="V-Accel AI Dynamics work"
+                className="rounded-xl border border-neutral-800 w-full aspect-video object-cover hover:border-accent transition-colors"
+              />
+            </div>
+          </div>
+        )
+      },
+      {
         title: "Aug 2025 - Present",
         content: (
           <div>
@@ -567,12 +599,12 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
             <div className="space-y-6">
               <p className="text-neutral-200 leading-relaxed text-lg font-light">
                 <span className="text-accent font-medium uppercase tracking-widest  block mb-2 opacity-70">Professional Overview</span>
-                As a fresh and result-oriented web developer, I bring a strong foundation in frontend technologies and a deep interest in building responsive, user-friendly web applications. I enjoy turning creative ideas into clean, functional designs and continuously improving my skills through real-world projects and consistent practice. My goal is to contribute to meaningful web projects and grow into a highly skilled frontend developer.
+                I am an AI/ML Engineer focused on building practical AI-powered applications. I am currently learning RAG, LangChain, and LangGraph, and have hands-on project experience with harness engineering. I also bring a full-stack development background and enjoy turning ideas into reliable, user-friendly products.
               </p>
 
               <p className="text-neutral-200 leading-relaxed text-lg font-light">
                 <span className="text-accent font-medium uppercase tracking-widest  block mb-2 opacity-70">Core Mission</span>
-                My goal is to become a well-rounded frontend developer, capable of crafting modern, scalable, and accessible web applications that solve real problems. I'm excited to take on new challenges and grow with a team that values creativity, performance, and continuous improvement.
+                My goal is to build reliable AI/ML systems and integrate them into modern applications. I am continuing to deepen my skills in retrieval-augmented generation, agent workflows, and scalable software engineering.
               </p>
             </div>
           </div>
@@ -743,7 +775,7 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
           <div className="hero-section">
             <HyperText text="Resume" className="title gradient-text uppercase tracking-tighter mb-2" />
             <p className="text-[var(--fg-dim)] text-sm mb-6">
-              Madhan Kumar S — Web Developer. Download my resume to view experience, skills, and education.
+              Madhan Kumar S — AI/ML Engineer. Download my resume to view experience, skills, and education.
             </p>
             <a
               href="/resume/MadhanKumar_S_Resume.pdf"
@@ -1075,8 +1107,9 @@ function PortfolioIDE() {
             language: 'typescript',
             icon: <Atom size={14} color="#00d8ff" />,
             content: `export const AboutMe = {
-  description: "As a fresh and result-oriented web developer, I bring a strong foundation in frontend technologies and a deep interest in building responsive, user-friendly web applications. I enjoy turning creative ideas into clean, functional designs and continuously improving my skills through real-world projects and consistent practice. My goal is to contribute to meaningful web projects and grow into a highly skilled frontend developer.",
-  goal: "My goal is to become a well-rounded frontend developer, capable of crafting modern, scalable, and accessible web applications that solve real problems. I'm excited to take on new challenges and grow with a team that values creativity, performance, and continuous improvement."
+  title: "AI/ML Engineer",
+  description: "I am an AI/ML Engineer focused on building practical AI-powered applications. I am currently learning RAG, LangChain, and LangGraph, and have hands-on project experience with harness engineering. I also bring a full-stack development background and enjoy turning ideas into reliable, user-friendly products.",
+  goal: "My goal is to build reliable AI/ML systems and integrate them into modern applications while deepening my skills in retrieval-augmented generation, agent workflows, and scalable software engineering."
 };`
           }
         ]
