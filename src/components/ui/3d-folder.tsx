@@ -928,6 +928,27 @@ export const PROJECT_CATEGORIES = [
         github: "https://github.com/S-MADHAN-KUMAR/UserManagement",
       }
     ] as Project[]
+  },
+  {
+    title: "Agents",
+    gradient: "linear-gradient(135deg, #0f766e, #22d3ee)",
+    projects: [
+      {
+        id: "destinify",
+        title: "Destinify - Multi-Agent Travel Planner",
+        description: "A conversational travel-planning assistant that turns destination and trip details into a day-by-day itinerary. A LangGraph supervisor routes requests to specialist agents for attractions, food, stays, and transport. Selected agents can research in parallel, and a planner combines their findings into one trip plan. Built with Next.js and FastAPI, with LangChain integrations and a demo mode for exploring the frontend when the backend is unavailable.",
+        image: "/projects/destinify.png",
+        tags: [
+          { name: "Multi-Agent AI", image: "https://img.icons8.com/color/48/robot-2.png" },
+          { name: "LangGraph", image: "https://img.icons8.com/color/48/artificial-intelligence.png" },
+          { name: "LangChain", image: "https://img.icons8.com/color/48/artificial-intelligence.png" },
+          { name: "Next.js", image: "https://img.icons8.com/fluency-systems-filled/96/nextjs.png" },
+          { name: "FastAPI", image: "https://img.icons8.com/color/48/api.png" }
+        ],
+        category: "AI Travel Planner",
+        webapp: "https://destinify-travel-agent.vercel.app/"
+      }
+    ] as Project[]
   }
 ];
 
