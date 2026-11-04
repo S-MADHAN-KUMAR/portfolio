@@ -478,35 +478,6 @@ const UIRenderer = ({ file, onProjectSelect }: { file: FileItem, onProjectSelect
         )
       },
       {
-        title: "Aug 2025 - Present",
-        content: (
-          <div>
-            <div className="flex items-center gap-4 mb-2">
-              <img
-                src="/experience/cosie.jpg"
-                alt="COSIE Logo"
-                className="w-12 h-12 rounded-lg border border-neutral-800 object-contain bg-white p-1"
-              />
-              <div>
-                <h4 className="text-xl font-normal text-white uppercase tracking-tight">Frontend Developer</h4>
-                <span className="text-accent font-normal uppercase tracking-wide text-xs">COSIE</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 mb-4 text-neutral-400 text-sm">
-              <span className="uppercase">Part time</span>
-              <span className="text-neutral-600">•</span>
-              <span className="italic opacity-70">Remote, India</span>
-            </div>
-            <p className="text-neutral-300 leading-relaxed mb-4 text-sm md:text-base">
-              Currently working on various web development projects using the MERN stack and Next.js.
-              Designing dynamic frontend interfaces with React.js, Framer Motion, and TypeScript,
-              and building robust backend services with Node.js and Express.js.
-              Also exploring AI tools to enhance user experience and functionality.
-            </p>
-          </div>
-        )
-      },
-      {
         title: "Jan 2025 - Aug 2025",
         content: (
           <div>

@@ -20,10 +20,7 @@ export function getPortfolioContext(): string {
 2. **Software Developer at Healthpilot.ai** (Aug 2025 - Present, Full time, Chennai, India)
    - Web development with MERN stack and Next.js; dynamic frontends with React.js, Framer Motion, TypeScript; backend with Node.js and Express.js; exploring AI tools for UX.
 
-3. **Frontend Developer at COSIE** (Aug 2025 - Present, Part time, Remote, India)
-   - Same stack: MERN, Next.js, React, Framer Motion, TypeScript, Node.js, Express.js, AI tools.
-
-4. **MERN Stack Developer at Brocamp** (Jan 2025 - Aug 2025, Full time, Puducherry, India)
+3. **MERN Stack Developer at Brocamp** (Jan 2025 - Aug 2025, Full time, Puducherry, India)
    - Full-stack development; MongoDB, Express, React, Node.js; modern UI components and backend improvements.
 
 ## Education

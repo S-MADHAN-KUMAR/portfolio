@@ -196,15 +196,6 @@ function ExperienceView() {
             image: "/experience/ht.jpg",
         },
         {
-            title: "Frontend Developer",
-            company: "COSIE",
-            logo: "/experience/cosie.jpg",
-            period: "Aug 2025 - Present",
-            type: "Part time",
-            location: "Remote, India",
-            description: "Building dynamic frontend interfaces with React.js and exploring AI tools to enhance user experience and functionality.",
-        },
-        {
             title: "MERN Stack Developer",
             company: "Brocamp",
             logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBLaP96CpB2kIP4A3Wh6_AsSI71VgQ9EbuDw&s",
